@@ -1,0 +1,12 @@
+kafka_servers:
+- "localhost:9992"
+kafka_topic: "sample"
+sites:
+- url: "https://example.com"
+  regex: "domain"
+  check_interval: 5
+- url: "https://example.com"
+  regex: "aaaaaaaaaaaaa"
+  check_interval: 8
+- url: "https://example.com/404"
+  check_interval: 13
