@@ -56,7 +56,12 @@ class Collector:
         :param site: A site object from the config.
         """
         while True:
-            data = await self.check(site.url, site.regex)
+            try:
+                data = await self.check(site.url, site.regex)
+            except Exception as exc:
+                errmsg = "{}; {}".format(site.url, exc)
+                self.logger.error(errmsg)
+                break #  Break the loop and destroy the Task.
             self.queue.put_nowait(data)
             await asyncio.sleep(site.check_interval)
 
@@ -77,6 +82,7 @@ class Collector:
                 msg = bytes(check.json().encode("utf-8"))
                 await producer.send_and_wait(self.config.kafka.topic, msg)
         finally:
+            self.logger.warning("Kafka producer destroyed!")
             await producer.stop()
 
     def run(self):
@@ -88,3 +94,4 @@ class Collector:
         tasks = list(map(create_task, self.config.sites))
         tasks.append(self.loop.create_task(self.produce()))
         self.loop.run_until_complete(asyncio.gather(*tasks))
+        self.logger.info("Checker stopped ...")

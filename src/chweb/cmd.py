@@ -3,6 +3,10 @@ A module containing all console script functions.
 """
 import argparse
 import asyncio
+import logging
+import logging.config
+from logging import Logger
+from typing import Tuple
 import yaml
 
 from chweb.collector import Collector
@@ -10,7 +14,7 @@ from chweb.consumer import Consumer
 from chweb.models import Config
 
 
-def configure() -> Config:
+def configure(name) -> Tuple[Config, Logger]:
     """
     Gets the configuration and creates a Pydantic model from the parsed YAML.
     """
@@ -23,7 +27,9 @@ def configure() -> Config:
     args = parser.parse_args()
     with open(args.config, 'r') as conf_file:
         config = yaml.load(conf_file, Loader=yaml.FullLoader)
-        return Config(**config)
+        logging.config.dictConfig(config['logging'])
+        logger = logging.getLogger("chweb.{}".format(name))
+        return (Config(**config), logger)
 
 
 def run(Service):
@@ -32,8 +38,11 @@ def run(Service):
     """
     loop = asyncio.get_event_loop()
     queue = asyncio.Queue()
-    config = configure()
-    service = Service(config, loop, queue)
+    config, logger = configure(Service.__name__)
+    logger.info(("Starting service on kafka [cluster]/topic: "
+                 "{}/{}").format(config.kafka.servers,
+                                 config.kafka.topic))
+    service = Service(config, logger, loop, queue)
     service.run()
 
 

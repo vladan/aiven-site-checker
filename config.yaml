@@ -9,7 +9,7 @@ postgres:
   dbuser: "vladan"
   dbpass: ""
 sites:
-- url: "https://example.com"
+- url: "https://dsadakjhkjsahkjh.com"
   regex: "domain"
   check_interval: 5
 - url: "https://example.com"
@@ -17,3 +17,20 @@ sites:
   check_interval: 8
 - url: "https://example.com/404"
   check_interval: 13
+logging:
+  version: 1
+  formatters:
+    standard:
+      format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    error:
+      format: "%(levelname)s <PID %(process)d:%(processName)s> %(name)s.%(funcName)s(): %(message)s"
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: standard
+      stream: ext://sys.stdout
+  root:
+    level: DEBUG
+    handlers: [console]
+    propogate: yes
