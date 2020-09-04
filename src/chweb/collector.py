@@ -8,12 +8,13 @@ from urllib.parse import urlparse
 
 import aiokafka #  type: ignore
 import requests
+from requests import ConnectionError
 
-from chweb.base import Application
+from chweb.base import Service
 from chweb.models import Check, SiteConfig
 
 
-class Collector(Application):
+class Collector(Service):
     """
     A class that contains all methods needed to check the statuses of all
     websites present in the config.
@@ -44,10 +45,10 @@ class Collector(Application):
 
     async def check_forever(self, site: SiteConfig):
         """
-        A void function that checks a site and sends the result to an
-        :class:`asyncio.Queue` for further processing, i.e. sends to a Kafka
-        topic when it's read from the queue in
-        :meth:`chweb.collector.Collector.produce` (as in produce data for the
+        A void function that checks the status of a site and sends the result
+        in an :class:`asyncio.Queue` for further processing, i.e. the check
+        info is sent to a Kafka topic in
+        :meth:`chweb.collector.Producer.produce` (as in produce data for the
         Kafka consumers, defined in :class:`chweb.consumer.Consumer.consume`.
 
         :param site: A :py:class:`chweb.models.SiteConfig` object from the
@@ -56,13 +57,27 @@ class Collector(Application):
         while True:
             try:
                 data = await self.check(site.url, site.regex)
-            except Exception as exc:
+            except ConnectionError as exc:
                 errmsg = "{}; {}".format(site.url, exc)
                 self.logger.error(errmsg)
                 break #  Break the loop and destroy the Task.
             self.queue.put_nowait(data)
             await asyncio.sleep(site.check_interval)
 
+    def __call__(self) -> asyncio.Future:
+        def create_task(site) -> asyncio.Task:
+            return self.loop.create_task(self.check_forever(site))
+        tasks = map(create_task, self.config.sites)
+        return asyncio.gather(*tasks)
+
+
+class Producer(Service):
+    """
+    Kafka producer.
+
+    Reads from the queue that :class:`chweb.collector.Collector` writes in and
+    sends all messages in a kafka topic.
+    """
     async def produce(self):
         """
         Creates and starts an ``aiokafka.AIOKafkaProducer`` and runs a loop
@@ -83,13 +98,5 @@ class Collector(Application):
             self.logger.warning("Kafka producer destroyed!")
             await producer.stop()
 
-    def run(self):
-        """
-        Runs all tasks in the event loop.
-        """
-        def create_task(site) -> asyncio.Task:
-            return self.loop.create_task(self.check_forever(site))
-        tasks = list(map(create_task, self.config.sites))
-        tasks.append(self.loop.create_task(self.produce()))
-        self.loop.run_until_complete(asyncio.gather(*tasks))
-        self.logger.info("Checker stopped ...")
+    def __call__(self) -> asyncio.Future:
+        return self.produce()

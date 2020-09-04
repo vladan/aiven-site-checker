@@ -7,7 +7,7 @@ import logging
 from chweb.models import Config
 
 
-class Application:
+class Service:
     """
     A base class for applications / services.
     """
@@ -19,6 +19,3 @@ class Application:
         self.logger = logger
         self.loop = event_loop
         self.queue = queue
-
-    def run(self):
-        raise NotImplementedError()

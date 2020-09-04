@@ -9,7 +9,7 @@ from logging import Logger
 from typing import Tuple
 import yaml
 
-from chweb.collector import Collector
+from chweb.collector import Collector, Producer
 from chweb.consumer import Consumer
 from chweb.models import Config
 
@@ -20,7 +20,7 @@ def configure(name) -> Tuple[Config, Logger]:
     """
     parser = argparse.ArgumentParser(
         description='Website availibility checker.')
-    parser.add_argument('--config', type=str,
+    parser.add_argument('-c', '--config', type=str,
                         default="/etc/checker.yaml",
                         help=('The yaml config file. '
                               'Defaults to /etc/checker.yaml'))
@@ -32,29 +32,31 @@ def configure(name) -> Tuple[Config, Logger]:
         return (Config(**config), logger)
 
 
-def run(Service):
-    """
-    Runs a service in an event loop.
-    """
-    loop = asyncio.get_event_loop()
-    queue = asyncio.Queue()
-    config, logger = configure(Service.__name__)
-    logger.info(("Starting service on kafka [cluster]/topic: "
-                 "{}/{}").format(config.kafka.servers,
-                                 config.kafka.topic))
-    service = Service(config, logger, loop, queue)
-    service.run()
-
-
 def collect():
     """
     Main producer event loop.
     """
-    run(Collector)
+    loop = asyncio.get_event_loop()
+    queue = asyncio.Queue()
+
+    config, logger = configure("collector")
+    logger.info("Starting collector for %d sites.", len(config.sites))
+    collector = Collector(config, logger, loop, queue)
+    logger.info(("Starting kafka producer on kafka [cluster]/topic: "
+                 "%s/%s"), config.kafka.servers, config.kafka.topic)
+    producer = Producer(config, logger, loop, queue)
+    loop.run_until_complete(asyncio.gather(collector(), producer()))
 
 
 def consume():
     """
     Main consumer event loop.
     """
-    run(Consumer)
+    loop = asyncio.get_event_loop()
+    queue = asyncio.Queue()
+
+    config, logger = configure("consumer")
+    logger.info(("Starting kafka consumer on kafka [cluster]/topic: "
+                 "%s/%s"), config.kafka.servers, config.kafka.topic)
+    consumer = Consumer(config, logger, loop, queue)
+    loop.run_until_complete(consumer())

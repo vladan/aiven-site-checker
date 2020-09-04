@@ -9,14 +9,14 @@ from typing import Any, Dict
 import aiokafka #  type: ignore
 import asyncpg #  type: ignore
 
-from chweb.base import Application
+from chweb.base import Service
 from chweb.models import Check
 
 
-class Consumer(Application):
+class Consumer(Service):
     async def consume(self):
         """
-        Consumes messages from a Kafka topic.
+        Consumes messages from a kafka topic and writes them in the database.
         """
         consumer = aiokafka.AIOKafkaConsumer(
             self.config.kafka.topic,
@@ -25,33 +25,24 @@ class Consumer(Application):
 
         await consumer.start()
         try:
-            # Consume messages
+            # Consume messages from the kafka topic.
             async for msg in consumer:
-                self.queue.put_nowait(Check(**json.loads(msg.value)))
+                check_info = Check(**json.loads(msg.value))
+                self.queue.put_nowait(check_info)
+                self.logger.info(check_info)
         finally:
             # Will leave consumer group; perform autocommit if enabled.
             await consumer.stop()
 
+    def __call__(self) -> asyncio.Future:
+        return self.consume()
 
-    async def save(self, pool, data):
-        async with pool.acquire() as conn:
-            async with conn.cursor() as cur:
-                await cur.execute("SELECT 1")
 
-    async def write(self):
+class Db:
+    async def consume_and_save(self):
         try:
             while True:
                 status = await self.queue.get()
-                print(status)
+                yield status
         finally:
-            print("EXITED!")
-
-    def run(self):
-        """
-        Runs all tasks in the event loop.
-        """
-        tasks = [
-            self.loop.create_task(self.consume()),
-            self.loop.create_task(self.write()),
-        ]
-        self.loop.run_until_complete(asyncio.gather(*tasks))
+            self.logger.info("Queue reader stopped.")
