@@ -31,8 +31,12 @@ class KafkaConfig(BaseModel):
     """
     Kafka broker configuration.
     """
-    servers: List[str] = ["localhost:9992"]
-    topic: str = "sample"
+    servers: List[str] = []
+    topic: str
+    cafile: str
+    cert: str
+    key: str
+    passwd: str
 
 
 class PostgresConfig(BaseModel):
@@ -44,6 +48,7 @@ class PostgresConfig(BaseModel):
     dbname: str = "chweb"
     dbuser: str = "vladan"
     dbpass: str = ""
+    dbcert: str = ""
 
 
 class SiteConfig(BaseModel):
@@ -60,6 +65,6 @@ class Config(BaseModel):
     Main application configuration. Same for the checker and the kafka
     consumer / postgres writer for simplicity while deploying.
     """
-    kafka: KafkaConfig = KafkaConfig()
-    postgres: PostgresConfig = PostgresConfig()
+    kafka: KafkaConfig
+    postgres: PostgresConfig
     sites: List[SiteConfig] = []

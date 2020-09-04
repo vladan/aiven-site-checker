@@ -1,13 +1,18 @@
 kafka:
   servers:
-  - "localhost:9992"
-  topic: "sample"
+  - "kafka-f7ae38e-vladanovic-4654.aivencloud.com:23702"
+  topic: "sitestats"
+  cafile: "./certs/ca.pem"
+  cert: "./certs/service.cert"
+  key: "./certs/service.key"
+  passwd: ""
 postgres:
-  dbhost: "localhost"
-  dbport: 5432
-  dbname: "chweb"
-  dbuser: "vladan"
+  dbhost: "pg-2e0f365c-vladanovic-4654.aivencloud.com"
+  dbport: 23700
+  dbname: "defaultdb"
+  dbuser: "avnadmin"
   dbpass: ""
+  dbcert: "./certs/pg.pem"
 sites:
 - url: "https://dsadakjhkjsahkjh.com"
   regex: "domain"
