@@ -1,6 +1,13 @@
-kafka_servers:
-- "localhost:9992"
-kafka_topic: "sample"
+kafka:
+  servers:
+  - "localhost:9992"
+  topic: "sample"
+postgres:
+  dbhost: "localhost"
+  dbport: 5432
+  dbname: "chweb"
+  dbuser: "vladan"
+  dbpass: ""
 sites:
 - url: "https://example.com"
   regex: "domain"

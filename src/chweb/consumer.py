@@ -3,10 +3,12 @@ Sample consumer.
 """
 import asyncio
 import json
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 import aiokafka #  type: ignore
 import asyncpg #  type: ignore
+
+from chweb.models import Check
 
 
 class Consumer:
@@ -22,15 +24,15 @@ class Consumer:
         Consumes messages from a Kafka topic.
         """
         consumer = aiokafka.AIOKafkaConsumer(
-            self.config['kafka_topic'],
+            self.config.kafka.topic,
             loop=self.loop,
-            bootstrap_servers=self.config['kafka_servers'])
+            bootstrap_servers=self.config.kafka.servers)
 
         await consumer.start()
         try:
             # Consume messages
             async for msg in consumer:
-                self.queue.put_nowait(json.loads(msg.value))
+                self.queue.put_nowait(Check(**json.loads(msg.value)))
         finally:
             # Will leave consumer group; perform autocommit if enabled.
             await consumer.stop()
@@ -49,11 +51,12 @@ class Consumer:
         finally:
             print("EXITED!")
 
-    def tasks(self) -> List[asyncio.Task]:
+    def run(self):
         """
-        Creates tasks for reading from the Kafka topic and writing in
-        PostgreSQL.
+        Runs all tasks in the event loop.
         """
-        kafka_consumer = self.loop.create_task(self.consume())
-        psql_writer = self.loop.create_task(self.write())
-        return [kafka_consumer, psql_writer]
+        tasks = [
+            self.loop.create_task(self.consume()),
+            self.loop.create_task(self.write()),
+        ]
+        self.loop.run_until_complete(asyncio.gather(*tasks))
