@@ -1,5 +1,5 @@
 """
-Setup file for the web stats collector.
+Setup file for the website checker.
 """
 from setuptools import setup  # type: ignore
 
@@ -11,6 +11,7 @@ setup(
     install_requires=[
         'aiokafka==0.6.0',
         'asyncpg==0.21.0',
+        'pydantic==1.6.1',
         'PyYAML==5.3.1',
         'requests==2.24.0',
     ],
