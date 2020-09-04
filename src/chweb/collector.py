@@ -10,21 +10,15 @@ from urllib.parse import urlparse
 import aiokafka #  type: ignore
 import requests
 
-from chweb.models import Config, Check
+from chweb.base import Application
+from chweb.models import Check
 
 
-class Collector:
+class Collector(Application):
     """
     A class that contains all methods needed to check the statuses of all
     websites present in the config.
     """
-    def __init__(self, config: Config,
-                 event_loop: asyncio.AbstractEventLoop,
-                 queue: asyncio.Queue):
-        self.config = config
-        self.loop = event_loop
-        self.queue = queue
-
     async def check(self, url: str, regex: Optional[str]) -> Check:
         """
         Checks the status of a website and optionally matches a regex on the
@@ -45,7 +39,7 @@ class Collector:
             response_time=res.elapsed.microseconds,
             regex_matches=matches,
             status=res.status_code,
-            url=res.url,
+            url=url,
         )
 
     async def check_forever(self, site):

@@ -3,22 +3,17 @@ Sample consumer.
 """
 import asyncio
 import json
+import logging
 from typing import Any, Dict
 
 import aiokafka #  type: ignore
 import asyncpg #  type: ignore
 
+from chweb.base import Application
 from chweb.models import Check
 
 
-class Consumer:
-    def __init__(self, config: Dict[str, Any],
-                 event_loop: asyncio.AbstractEventLoop,
-                 queue: asyncio.Queue):
-        self.config = config
-        self.loop = event_loop
-        self.queue = queue
-
+class Consumer(Application):
     async def consume(self):
         """
         Consumes messages from a Kafka topic.
