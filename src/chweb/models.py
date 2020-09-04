@@ -2,8 +2,8 @@
 """
 Schemas that are used in all modules. This module contains classes for:
 
-- Configuring the ``chweb.collector.Collector``.
-- Configuring the ``chweb.consumer.Consumer``.
+- Configuring the :class:`chweb.collector.Collector`.
+- Configuring the :class:`chweb.consumer.Consumer`.
 - The schema for the stats being sent in the Kafka topic.
 """
 from datetime import datetime

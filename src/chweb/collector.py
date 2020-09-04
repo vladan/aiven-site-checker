@@ -2,7 +2,6 @@
 Checks status of web servers and sends them to a configured Kafka topic.
 """
 import asyncio
-import json
 import re
 from typing import Optional
 from urllib.parse import urlparse
@@ -11,7 +10,7 @@ import aiokafka #  type: ignore
 import requests
 
 from chweb.base import Application
-from chweb.models import Check
+from chweb.models import Check, SiteConfig
 
 
 class Collector(Application):
@@ -26,7 +25,8 @@ class Collector(Application):
 
         :param url: The URL of the site that needs to be checked.
         :param regex: An optional regex to match on the response body.
-        :returns: A dict ready to be sent to the queue for further processing.
+        :returns: ``chweb.models.Check``, sent to a queue in
+                  ``chweb.collector.Collector.check_forever``.
         """
         res = await self.loop.run_in_executor(None, requests.get, url)
         matches = None #  The matches value should be None since the regex can
@@ -42,12 +42,16 @@ class Collector(Application):
             url=url,
         )
 
-    async def check_forever(self, site):
+    async def check_forever(self, site: SiteConfig):
         """
-        A void function that gets the status of a site and sends it to an
-        ``asyncio.Queue`` for further processing (sending to a Kafka topic).
+        A void function that checks a site and sends the result to an
+        :class:`asyncio.Queue` for further processing, i.e. sends to a Kafka
+        topic when it's read from the queue in
+        :meth:`chweb.collector.Collector.produce` (as in produce data for the
+        Kafka consumers, defined in :class:`chweb.consumer.Consumer.consume`.
 
-        :param site: A site object from the config.
+        :param site: A :py:class:`chweb.models.SiteConfig` object from the
+                     config.
         """
         while True:
             try:
@@ -61,9 +65,9 @@ class Collector(Application):
 
     async def produce(self):
         """
-        Creates and starts an ``aiokafka.AIOKafkaProducer`` and runs a loop that
-        reads from the ``queue`` and sends the messages to the topic from the
-        ``config``.
+        Creates and starts an ``aiokafka.AIOKafkaProducer`` and runs a loop
+        that reads from the queue and sends the messages to the topic from the
+        config.
         """
         producer = aiokafka.AIOKafkaProducer(
             loop=self.loop,
