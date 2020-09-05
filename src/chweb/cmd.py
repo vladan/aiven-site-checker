@@ -28,9 +28,10 @@ def configure(name) -> Tuple[Config, Logger]:
     args = parser.parse_args()
 
     with open(args.config, 'r') as conf_file:
-        config = yaml.load(conf_file, Loader=yaml.FullLoader)
-        logging.config.dictConfig(config['logging'])
+        conf = yaml.load(conf_file, Loader=yaml.FullLoader)
+        logging.config.dictConfig(conf['logging'])
 
+        config = create_config(conf)
         logger = logging.getLogger("chweb.{}".format(name))
         return (config, logger)
 

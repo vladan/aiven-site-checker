@@ -31,8 +31,9 @@ class Collector(Service):
                   ``chweb.collector.Collector.check_forever``.
         """
         res = await self.loop.run_in_executor(None, requests.get, url)
-        matches = None  # The matches value should be None since the regex can
-        #  be ommited from the config.
+        # Should be treated as nullable since the regex can be ommited from the
+        # config.
+        matches = None
         if regex is not None:
             matches = re.search(regex, res.text) is not None
         return Check(
@@ -100,6 +101,7 @@ class Producer(Service):
             while True:
                 check = await self.queue.get()
                 msg = bytes(check.json().encode("utf-8"))
+                self.logger.debug(check)
                 await self.producer.send_and_wait(self.config.kafka.topic, msg)
         except Exception as exc:
             self.logger.error(exc)
