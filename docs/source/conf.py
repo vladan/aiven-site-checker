@@ -15,9 +15,6 @@ import sys
 import sphinx_typlog_theme
 
 
-sys.path.insert(0, os.path.join(os.path.abspath('.'),
-                                "..", "..", "src"))
-
 # -- Project information -----------------------------------------------------
 
 project = 'chweb'

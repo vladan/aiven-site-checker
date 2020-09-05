@@ -6,7 +6,7 @@ import asyncio
 import logging
 import logging.config
 from logging import Logger
-from typing import Tuple
+from typing import Any, Dict, Tuple
 import os
 import yaml
 
@@ -27,6 +27,15 @@ def configure(name) -> Tuple[Config, Logger]:
                               'Defaults to /etc/checker.yaml'))
     args = parser.parse_args()
 
+    with open(args.config, 'r') as conf_file:
+        config = yaml.load(conf_file, Loader=yaml.FullLoader)
+        logging.config.dictConfig(config['logging'])
+
+        logger = logging.getLogger("chweb.{}".format(name))
+        return (config, logger)
+
+
+def create_config(conf: Dict[str, Any]):
     kafka_servers_env = os.getenv('KAFKA_SERVERS')
     if kafka_servers_env is not None:
         kafka_servers = kafka_servers_env.split(',')
@@ -39,23 +48,18 @@ def configure(name) -> Tuple[Config, Logger]:
     pg_user = os.getenv('POSTGRES_USER')
     pg_pass = os.getenv('POSTGRES_PASS')
 
-    with open(args.config, 'r') as conf_file:
-        config = yaml.load(conf_file, Loader=yaml.FullLoader)
-        logging.config.dictConfig(config['logging'])
+    config = Config(**conf)
+    config.kafka.servers = (kafka_servers if kafka_servers_env
+                            else config.kafka.servers)
+    config.kafka.topic = kafka_topic or config.kafka.topic
+    config.postgres.dbhost = pg_host or config.postgres.dbhost
+    config.postgres.dbname = pg_db or config.postgres.dbname
+    config.postgres.dbport = (int(pg_port) if pg_port is not None
+                              else config.postgres.dbport)
+    config.postgres.dbuser = pg_user or config.postgres.dbuser
+    config.postgres.dbpass = pg_pass or config.postgres.dbpass
 
-        config = Config(**config)
-        config.kafka.servers = (kafka_servers if kafka_servers_env
-                                              else config.kafka.servers)
-        config.kafka.topic = kafka_topic or config.kafka.topic
-        config.postgres.dbhost = pg_host or config.postgres.dbhost
-        config.postgres.dbname = pg_db or config.postgres.dbname
-        config.postgres.dbport = pg_port or config.postgres.dbport
-        config.postgres.dbuser = pg_user or config.postgres.dbuser
-        config.postgres.dbpass = pg_pass or config.postgres.dbpass
-
-        logger = logging.getLogger("chweb.{}".format(name))
-        print(config)
-        return (config, logger)
+    return config
 
 
 def collect():

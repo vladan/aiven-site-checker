@@ -2,16 +2,17 @@
 Checks status of web servers and sends them to a configured Kafka topic.
 """
 import asyncio
+import logging
 import re
 from typing import Optional
 from urllib.parse import urlparse
 
-import aiokafka #  type: ignore
+import aiokafka  # type: ignore
 import requests
-from requests import ConnectionError
+from requests import exceptions as rqexc
 
 from chweb.base import Service
-from chweb.models import Check, SiteConfig
+from chweb.models import Check, Config, SiteConfig
 
 
 class Collector(Service):
@@ -30,8 +31,8 @@ class Collector(Service):
                   ``chweb.collector.Collector.check_forever``.
         """
         res = await self.loop.run_in_executor(None, requests.get, url)
-        matches = None #  The matches value should be None since the regex can
-                       #  be ommited from the config.
+        matches = None  # The matches value should be None since the regex can
+        #  be ommited from the config.
         if regex is not None:
             matches = re.search(regex, res.text) is not None
         return Check(
@@ -57,10 +58,10 @@ class Collector(Service):
         while True:
             try:
                 data = await self.check(site.url, site.regex)
-            except ConnectionError as exc:
+            except rqexc.ConnectionError as exc:
                 errmsg = "{}; {}".format(site.url, exc)
                 self.logger.error(errmsg)
-                break #  Break the loop and destroy the Task.
+                break  # Break the loop and destroy the Task.
             self.queue.put_nowait(data)
             await asyncio.sleep(site.check_interval)
 
@@ -75,28 +76,36 @@ class Producer(Service):
     """
     Kafka producer.
 
-    Reads from the queue that :class:`chweb.collector.Collector` writes in and
-    sends all messages in a kafka topic.
+    Reads checks from the queue written by :class:`chweb.collector.Collector`
+    and sends all messages in a kafka topic.
     """
-    async def produce(self):
-        """
-        Creates and starts an ``aiokafka.AIOKafkaProducer`` and runs a loop
-        that reads from the queue and sends the messages to the topic from the
-        config.
-        """
-        producer = aiokafka.AIOKafkaProducer(
+
+    def __init__(self, config: Config,
+                 logger: logging.Logger,
+                 event_loop: asyncio.AbstractEventLoop,
+                 queue: asyncio.Queue):
+        super().__init__(config, logger, event_loop, queue)
+        self.producer = aiokafka.AIOKafkaProducer(
             loop=self.loop,
             bootstrap_servers=self.config.kafka.servers)
 
-        await producer.start()
+    async def produce(self):
+        """
+        Creates and starts an ``aiokafka.AIOKafkaProducer`` and runs a loop
+        that reads from the queue and sends the messages to the topic defined
+        in the config.
+        """
+        await self.producer.start()
         try:
             while True:
                 check = await self.queue.get()
                 msg = bytes(check.json().encode("utf-8"))
-                await producer.send_and_wait(self.config.kafka.topic, msg)
+                await self.producer.send_and_wait(self.config.kafka.topic, msg)
+        except Exception as exc:
+            self.logger.error(exc)
         finally:
             self.logger.warning("Kafka producer destroyed!")
-            await producer.stop()
+            await self.producer.stop()
 
     def __call__(self) -> asyncio.Future:
         return self.produce()
