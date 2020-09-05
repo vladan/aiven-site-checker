@@ -15,13 +15,16 @@ class Check(BaseModel):
     """
     Information for a website check request.
     """
-    domain: str = ""
+    domain: str
     regex: Optional[str] = None
     regex_matches: Optional[bool] = None
     request_time: datetime = datetime.now()
-    response_time: int = 0
-    status: int = 0
-    url: str = ""
+    response_time: int
+    status: int
+    url: str
+
+    class Config:
+        extra = "forbid"
 
 
 class KafkaConfig(BaseModel):
@@ -48,8 +51,8 @@ class SiteConfig(BaseModel):
     Single website configuration.
     """
     url: str = "https://example.com"
-    regex: str = "domain"
-    check_interval: int = 5
+    regex: Optional[str] = None
+    check_interval: int
 
 
 class Config(BaseModel):

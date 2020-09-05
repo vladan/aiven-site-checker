@@ -36,18 +36,17 @@ class Consumer(Service):
         """
         await self.consumer.start()
         try:
-            async with self.db as db:
-                await db.setup()
-                async for msg in self.consumer:
-                    try:
-                        check = Check(**json.loads(msg.value))
-                        self.logger.debug(check)
-                        await db.save(check)
-                    except Exception as exc:
-                        err = "error processing message %s; failed with %s"
-                        self.logger.error(err, msg, exc)
+            await self.db.setup()
+            async for msg in self.consumer:
+                # if anything here fails break the loop and exit since it's
+                # something out of our control and we don't want to work
+                # with broken data
+                check = Check(**json.loads(msg.value))
+                self.logger.debug(check)
+                await self.db.save(check)
         except Exception as exc:
             self.logger.error(exc)
+            self.logger.info("Exiting due to previous errors!")
         finally:
             await self.consumer.stop()
 
@@ -69,7 +68,10 @@ class Db:
         self.conn: Optional[asyncpg.Connection] = None
         self.conf = pgconf
 
-    async def __aenter__(self):
+    async def setup(self):
+        """
+        Setup the database, i.e. create the table and set up the indexes.
+        """
         self.conn = await asyncpg.connect(
             host=self.conf.dbhost,
             port=self.conf.dbport,
@@ -78,15 +80,6 @@ class Db:
             database=self.conf.dbname,
             loop=self.loop, timeout=60,
         )
-        return self
-
-    async def __aexit__(self, type_, value, traceback):
-        await self.conn.close()
-
-    async def setup(self):
-        """
-        Setup the database, i.e. create the table and set up the indexes.
-        """
         await self.conn.execute('''
             CREATE TABLE IF NOT EXISTS statuses(
                 id SERIAL PRIMARY KEY,
