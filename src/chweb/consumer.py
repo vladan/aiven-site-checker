@@ -4,8 +4,7 @@ Sample consumer.
 import asyncio
 import json
 import logging
-import time
-from typing import Any, Dict, Optional
+from typing import Optional
 
 import aiokafka  # type: ignore
 import asyncpg  # type: ignore
@@ -15,6 +14,11 @@ from chweb.models import Check, Config, PostgresConfig
 
 
 class Consumer(Service):
+    """
+    Consumes messages from the kafka topic and if they are correct, i.e. if
+    they can be serialized in a :class:`chweb.models.Check` object, then they
+    are saved in the database.
+    """
     def __init__(self, config: Config,
                  logger: logging.Logger,
                  event_loop: asyncio.AbstractEventLoop,
