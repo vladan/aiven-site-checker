@@ -11,13 +11,16 @@ import aiokafka  # type: ignore
 import asyncpg  # type: ignore
 
 from chweb.base import Service
-from chweb.models import Check, PostgresConfig
+from chweb.models import Check, Config, PostgresConfig
 
 
 class Consumer(Service):
-    @property
-    def db(self):
-        return Db(self.loop, self.logger, self.config.postgres)
+    def __init__(self, config: Config,
+                 logger: logging.Logger,
+                 event_loop: asyncio.AbstractEventLoop,
+                 queue: asyncio.Queue):
+        super().__init__(config, logger, event_loop, queue)
+        self.db = Db(self.loop, self.logger, self.config.postgres)
 
     async def consume(self):
         """
@@ -41,6 +44,8 @@ class Consumer(Service):
                     except Exception as exc:
                         err = "error processing message %s; failed with %s"
                         self.logger.error(err, msg, exc)
+        except Exception as exc:
+            self.logger.error(exc)
         finally:
             await consumer.stop()
 
