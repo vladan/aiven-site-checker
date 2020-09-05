@@ -21,7 +21,7 @@ async def test_producer_called(config, event_loop):
 
     producer.producer = Mock()
 
-    task = event_loop.create_task(producer.produce())
+    task = event_loop.create_task(producer())
     await asyncio.sleep(0)
     producer.producer.send_and_wait.assert_called_with(
         config.kafka.topic, bytes(check.json().encode('utf-8')))
@@ -41,7 +41,7 @@ async def test_producer_called_invalid(config, event_loop):
 
     producer.producer = Mock()
 
-    task = event_loop.create_task(producer.produce())
+    task = event_loop.create_task(producer())
     await asyncio.sleep(0)
     producer.logger.error.assert_called()
     assert task.done()
