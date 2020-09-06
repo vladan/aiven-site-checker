@@ -1,13 +1,14 @@
 import asyncio
 
 import aiokafka
-from mock import Mock, AsyncMock
+from mock import AsyncMock, Mock, patch
 import pytest
 
 from chweb.collector import Producer
 
 
 @pytest.mark.asyncio
+@patch('ssl.SSLContext')
 async def test_producer_called(check, config, event_loop):
     queue = asyncio.Queue()
     producer = Producer(config, Mock(), event_loop, queue)
@@ -23,6 +24,7 @@ async def test_producer_called(check, config, event_loop):
 
 
 @pytest.mark.asyncio
+@patch('ssl.SSLContext')
 async def test_producer_called_invalid(config, event_loop):
     queue = asyncio.Queue()
     producer = Producer(config, Mock(), event_loop, queue)
