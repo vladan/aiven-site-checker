@@ -11,10 +11,6 @@ platform, using their `kafka <https://aiven.io/kafka>`_ and `postgresql
 
 Install and run the application with::
 
-    pip install https://github.com/vladan/aiven-status-checker/releases/...
+    pip install .
     chweb_collect -c config.yaml &
     chweb_consume -c config.yaml &
-
-or run in docker with::
-
-    docker-compose up
