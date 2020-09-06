@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Running the services &mdash; chweb  documentation</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono"><link rel="stylesheet" href="_static/typlog.css?v=0.7.3" type="text/css" />
+  <link rel="stylesheet" href="_static/theme.css?v=0.7.3" type="text/css" />
+      <link rel="index" title="Index" href="genindex.html"/>
+      <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="chweb  documentation" href="index.html"/>
+      <link rel="next" title="Environment config" href="environment.html"/>
+      <link rel="prev" title="chweb - Check websites state" href="index.html"/>
+  <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create', '');ga('send', 'pageview');</script>
+  <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="chweb">
+  <meta property="og:title" content="Running the services">
+  <meta name="twitter:card" content="summary">
+</head>
+<body role="document" data-page="configuration">
+  <header class="t-head">
+    <div class="t-head_menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M64 384h384v-42.666H64V384zm0-106.666h384v-42.667H64v42.667zM64 128v42.665h384V128H64z"/></svg></div>
+    <a class="t-head_logo" href="index.html">chweb
+    </a>
+  </header>
+  <aside class="t-sidebar">
+    <div class="t-sidebar_close">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z"/></svg>
+    </div>
+    <div class="inner">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Running the services</a><ul>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">chweb - Check websites state</a></li>
+      <li>Next: <a href="environment.html" title="next chapter">Environment config</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/configuration.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox">
+  <form class="search" action="search.html" method="get">
+    <div class="input-group">
+      <input type="text" name="q" placeholder="Search" />
+      <button type="submit">Go</button>
+    </div>
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+    </div>
+  </aside>
+  <div class="t-content">
+    <div class="t-body yue">
+      
+  <div class="section" id="running-the-services">
+<h1>Running the services<a class="headerlink" href="#running-the-services" title="Permalink to this headline">¶</a></h1>
+<p>When you install the package you get two commad-line applications:
+<code class="docutils literal notranslate"><span class="pre">chweb_collect</span></code> and <code class="docutils literal notranslate"><span class="pre">chweb_consume</span></code>.</p>
+<p>Both of them need a configuration file to start, e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chweb_consume</span> <span class="o">--</span><span class="n">help</span>
+<span class="n">usage</span><span class="p">:</span> <span class="n">chweb_consume</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">c</span> <span class="n">CONFIG</span><span class="p">]</span>
+
+<span class="n">Website</span> <span class="n">availibility</span> <span class="n">checker</span><span class="o">.</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">c</span> <span class="n">CONFIG</span><span class="p">,</span> <span class="o">--</span><span class="n">config</span> <span class="n">CONFIG</span>
+                        <span class="n">The</span> <span class="n">yaml</span> <span class="n">config</span> <span class="n">file</span><span class="o">.</span> <span class="n">Defaults</span> <span class="n">to</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">checker</span><span class="o">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Both cli scripts use the same config file to simplify deployment. You only set
+it up once and supply it to the scripts on their locations.</p>
+<p>The config file is somewhat straightforward, as it can be seen in this example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kafka</span><span class="p">:</span>
+  <span class="n">servers</span><span class="p">:</span>
+  <span class="o">-</span> <span class="s2">&quot;localhost:9992&quot;</span>
+  <span class="n">topic</span><span class="p">:</span> <span class="s2">&quot;sample&quot;</span>
+<span class="n">postgres</span><span class="p">:</span>
+  <span class="n">dbhost</span><span class="p">:</span> <span class="s2">&quot;localhost&quot;</span>
+  <span class="n">dbport</span><span class="p">:</span> <span class="mi">5432</span>
+  <span class="n">dbname</span><span class="p">:</span> <span class="s2">&quot;chweb&quot;</span>
+  <span class="n">dbuser</span><span class="p">:</span> <span class="s2">&quot;vladan&quot;</span>
+  <span class="n">dbpass</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+<span class="n">sites</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">url</span><span class="p">:</span> <span class="s2">&quot;https://dsadakjhkjsahkjh.com&quot;</span>
+  <span class="n">regex</span><span class="p">:</span> <span class="s2">&quot;domain&quot;</span>
+  <span class="n">check_interval</span><span class="p">:</span> <span class="mi">5</span>
+<span class="o">-</span> <span class="n">url</span><span class="p">:</span> <span class="s2">&quot;https://example.com&quot;</span>
+  <span class="n">regex</span><span class="p">:</span> <span class="s2">&quot;aaaaaaaaaaaaa&quot;</span>
+  <span class="n">check_interval</span><span class="p">:</span> <span class="mi">8</span>
+<span class="o">-</span> <span class="n">url</span><span class="p">:</span> <span class="s2">&quot;https://example.com/404&quot;</span>
+  <span class="n">check_interval</span><span class="p">:</span> <span class="mi">13</span>
+<span class="n">logging</span><span class="p">:</span>
+  <span class="n">version</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="n">formatters</span><span class="p">:</span>
+    <span class="n">standard</span><span class="p">:</span>
+      <span class="nb">format</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> - </span><span class="si">%(name)s</span><span class="s2"> - </span><span class="si">%(levelname)s</span><span class="s2"> - </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
+    <span class="n">error</span><span class="p">:</span>
+      <span class="nb">format</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%(levelname)s</span><span class="s2"> &lt;PID </span><span class="si">%(process)d</span><span class="s2">:</span><span class="si">%(processName)s</span><span class="s2">&gt; </span><span class="si">%(name)s</span><span class="s2">.</span><span class="si">%(funcName)s</span><span class="s2">(): </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
+  <span class="n">handlers</span><span class="p">:</span>
+    <span class="n">console</span><span class="p">:</span>
+      <span class="n">class</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span>
+      <span class="n">level</span><span class="p">:</span> <span class="n">DEBUG</span>
+      <span class="n">formatter</span><span class="p">:</span> <span class="n">standard</span>
+      <span class="n">stream</span><span class="p">:</span> <span class="n">ext</span><span class="p">:</span><span class="o">//</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+  <span class="n">root</span><span class="p">:</span>
+    <span class="n">level</span><span class="p">:</span> <span class="n">DEBUG</span>
+    <span class="n">handlers</span><span class="p">:</span> <span class="p">[</span><span class="n">console</span><span class="p">]</span>
+    <span class="n">propogate</span><span class="p">:</span> <span class="n">yes</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+  <div class="t-pagination clearfix">
+    <span>
+      ← <a href="index.html" title="chweb - Check websites state">chweb - Check websites state</a>
+    </span>
+    <span style="float:right">
+      <a href="environment.html" title="Environment config">Environment config</a> →
+    </span>
+  </div>
+
+    </div><footer class="t-foot">
+    &copy; Copyright 2020, Vladan Popovic.
+    <br>
+    A <a href="https://typlog.com/">typlog</a> <a href="https://github.com/typlog/sphinx-typlog-theme">sphinx theme</a>,
+    designed by <a href="https://lepture.com/">Hsiaoming Yang</a>.
+</footer>
+  </div>
+  <script>$(function(){$(".t-head_menu").on("click",function(){$("body").addClass("_expand")});$(".t-body").on("click",function(){$("body").removeClass("_expand")});$(".t-sidebar_close").on("click",function(){$("body").removeClass("_expand")});$("a.footnote-reference").on("click",function(e){e.preventDefault();var id=$(this).attr("href");var html=$(id).find("td.label + td").html();var w=Math.max(document.documentElement.clientWidth,window.innerWidth||0);var style="top:"+e.pageY+"px;";if(w>560){style+="width:480px;";if(e.pageX>240&&e.pageX+240<w){style+="left:"+(e.pageX-240)+"px;"}else if(e.pageX<=240){style+="left:20px;"}else{style+="right:20px;"}}showFootnote(html,style)});function showFootnote(html,style){var CONTENT_ID="typlog-footnote-content";var content=document.getElementById(CONTENT_ID);if(!content){content=document.createElement("div");content.id=CONTENT_ID;$(".t-body").append(content)}var MASK_ID="typlog-footnote-mask";var mask=document.getElementById(MASK_ID);if(!mask){mask=document.createElement("div");mask.id=MASK_ID;document.body.appendChild(mask);mask.addEventListener("click",function(){content.className="";mask.className=""})}content.innerHTML=html;content.setAttribute("style",style);content.className="_active";mask.className="_active"}function fetchGitHubRepo(repo){var url="https://api.github.com/repos/"+repo;$.getJSON(url,function(data){var counts=[+new Date,data.stargazers_count,data.forks_count];localStorage.setItem("gh:"+repo,JSON.stringify(counts));updateGitHubStats(counts[1],counts[2])})}function updateGitHubStats(stars,forks){$(".github_stars strong").text(stars);$(".github_forks strong").text(forks)}function initGitHub(url){if(!url){return}var repo=url.replace("https://github.com/","");var cache=localStorage.getItem("gh:"+repo);if(cache){try{var counts=JSON.parse(cache);updateGitHubStats(counts[1],counts[2]);var delta=new Date-counts[0];if(delta<0||delta>9e5){fetchGitHubRepo(repo)}}catch(error){fetchGitHubRepo(repo)}}else{fetchGitHubRepo(repo)}}initGitHub($(".github").attr("href"))});</script>
+</body>
+</html>
