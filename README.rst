@@ -6,7 +6,7 @@ Website checker demo
    :target: https://github.com/vladan/aiven-site-checker/actions?query=workflow%3Abuild+branch%3Amaster
 
 .. image:: https://github.com/vladan/aiven-site-checker/workflows/documentation/badge.svg
-   :target: https://github.com/vladan/aiven-site-checker/actions?query=workflow%3Adocumentation+branch%3Amaster
+   :target: https://vladan.github.io/aiven-site-checker/
 
 CHWEB is a website checking tool.
 
