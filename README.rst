@@ -10,6 +10,11 @@ Website checker demo
 
 CHWEB is a website checking tool.
 
+It sends HTTP requests to sites with the intent to check their status /
+availibility, and if the ``regex`` param is specified, it runs it against the
+response body. The retreived status check is sent to a Kafka topic. When
+read by the consumer, the status check is written in a PostgreSQL database.
+
 ATM in its very early stages meant to demo `aiven <https://aiven.io>`_'s
 platform, using their `kafka <https://aiven.io/kafka>`_ and `postgresql
 <https://aiven.io/postgresql>`_ services.
