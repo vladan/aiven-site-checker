@@ -10,6 +10,10 @@ def config():
         'kafka': {
             'servers': ["localhost:9992"],
             'topic': "sample",
+            'cafile': "/dev/null",
+            'cert': "/dev/null",
+            'key': "/dev/null",
+            'passwd': "",
         },
         'postgres': {
             'dbhost': "localhost",
@@ -34,6 +38,10 @@ def config_invalid():
         'kafka': {
             'servers': ["localhost:9992"],
             'topic': "sample",
+            'cafile': "",
+            'cert': "",
+            'key': "",
+            'passwd': "",
         },
         'postgres': {
             'dbhost': "localhost",
@@ -41,6 +49,7 @@ def config_invalid():
             'dbname': "chweb",
             'dbuser': "vladan",
             'dbpass': "",
+            'dbcert': "",
         },
         'sites': [{
             'url': "https://dsadakjhkjsahkjh.com",
