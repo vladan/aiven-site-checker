@@ -34,11 +34,11 @@ stored in the ``sites`` key and are represented as a list of objects with
 field that can freely omitted which checks the body of the response against the
 regex expression::
 
-  - url: "https://dsadakjhkjsahkjh.com"
-    regex: "domain"
+  - url: "https://example.com"
+    regex: "domain" # a regex matching the body of the response
     check_interval: 5
   - url: "https://example.com"
-    regex: "aaaaaaaaaaaaa"
+    regex: "aaaaaaaa" # a regex not matching the body of the response
     check_interval: 8
   - url: "https://example.com/404"
     check_interval: 13
