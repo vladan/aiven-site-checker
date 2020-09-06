@@ -1,6 +1,7 @@
 import asyncio
 import pytest
 from chweb.cmd import create_config
+from chweb.models import Check
 
 @pytest.fixture()
 def config():
@@ -47,3 +48,12 @@ def config_invalid():
       ]
     }
     return create_config(config_dict)
+
+@pytest.fixture
+def check():
+    return Check(
+        domain="example.com",
+        response_time=3265,
+        status=200,
+        url="https://example.com",
+    )

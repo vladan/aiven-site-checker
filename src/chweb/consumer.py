@@ -19,6 +19,7 @@ class Consumer(Service):
     they can be serialized in a :class:`chweb.models.Check` object, then they
     are saved in the database.
     """
+
     def __init__(self, config: Config,
                  logger: logging.Logger,
                  event_loop: asyncio.AbstractEventLoop,
@@ -110,14 +111,14 @@ class Db:
         """
         if self.conn is not None:
             try:
-                await self.conn.execute('''
-                    INSERT INTO statuses (domain, regex, regex_matches,
+                await self.conn.execute(
+                    '''INSERT INTO statuses (domain, regex, regex_matches,
                                           request_time, response_time,
                                           status, url)
-                    VALUES($1, $2, $3, $4, $5, $6, $7)
-                    ''', data.domain, data.regex, data.regex_matches,
-                         data.request_time, data.response_time, data.status,
-                         data.url)
+                    VALUES($1, $2, $3, $4, $5, $6, $7)''',
+                    data.domain, data.regex, data.regex_matches,
+                    data.request_time, data.response_time, data.status,
+                    data.url)
             except asyncpg.PostgresError as exc:
                 self.logger.error("error in query %s", exc)
                 raise

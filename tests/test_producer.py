@@ -1,25 +1,19 @@
 import asyncio
 
 import aiokafka
-from mock import Mock
+from mock import Mock, AsyncMock
 import pytest
 
 from chweb.collector import Producer
-from chweb.models import Check
 
 
 @pytest.mark.asyncio
-async def test_producer_called(config, event_loop):
+async def test_producer_called(check, config, event_loop):
     queue = asyncio.Queue()
     producer = Producer(config, Mock(), event_loop, queue)
-    check = Check()
     await queue.put(check)
 
-    async def async_patch():
-        pass
-    Mock.__await__ = lambda x: async_patch().__await__()
-
-    producer.producer = Mock()
+    producer.producer = AsyncMock()
 
     task = event_loop.create_task(producer())
     await asyncio.sleep(0)
@@ -32,14 +26,9 @@ async def test_producer_called(config, event_loop):
 async def test_producer_called_invalid(config, event_loop):
     queue = asyncio.Queue()
     producer = Producer(config, Mock(), event_loop, queue)
-    check = Check()
     await queue.put('')
 
-    async def async_patch():
-        pass
-    Mock.__await__ = lambda x: async_patch().__await__()
-
-    producer.producer = Mock()
+    producer.producer = AsyncMock()
 
     task = event_loop.create_task(producer())
     await asyncio.sleep(0)
