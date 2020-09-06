@@ -4,9 +4,11 @@ Sample consumer.
 import asyncio
 import json
 import logging
+import ssl
 from typing import Optional
 
 import aiokafka  # type: ignore
+from aiokafka.helpers import create_ssl_context  # type: ignore
 import asyncpg  # type: ignore
 
 from chweb.base import Service
@@ -26,10 +28,19 @@ class Consumer(Service):
                  queue: asyncio.Queue):
         super().__init__(config, logger, event_loop, queue)
         self.db = Db(self.loop, self.logger, self.config.postgres)
+        context = create_ssl_context(
+            cafile=self.config.kafka.cafile,
+            certfile=self.config.kafka.cert,
+            keyfile=self.config.kafka.key,
+            password=self.config.kafka.passwd,
+        )
         self.consumer = aiokafka.AIOKafkaConsumer(
             self.config.kafka.topic,
             loop=self.loop,
-            bootstrap_servers=self.config.kafka.servers)
+            bootstrap_servers=self.config.kafka.servers,
+            security_protocol="SSL",
+            ssl_context=context,
+        )
 
     async def consume(self):
         """
@@ -46,7 +57,7 @@ class Consumer(Service):
                 self.logger.debug(check)
                 await self.db.save(check)
         except Exception as exc:
-            self.logger.error(exc)
+            self.logger.exception(exc)
             self.logger.info("Exiting due to previous errors!")
         finally:
             await self.consumer.stop()
@@ -80,6 +91,7 @@ class Db:
             password=self.conf.dbpass,
             database=self.conf.dbname,
             loop=self.loop, timeout=60,
+            ssl=ssl.create_default_context(cafile=self.conf.dbcert),
         )
         await self.conn.execute('''
             CREATE TABLE IF NOT EXISTS statuses(

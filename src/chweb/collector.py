@@ -8,6 +8,7 @@ from typing import Optional
 from urllib.parse import urlparse
 
 import aiokafka  # type: ignore
+from aiokafka.helpers import create_ssl_context  # type: ignore
 import requests
 from requests import exceptions as rqexc
 
@@ -86,9 +87,18 @@ class Producer(Service):
                  event_loop: asyncio.AbstractEventLoop,
                  queue: asyncio.Queue):
         super().__init__(config, logger, event_loop, queue)
+        context = create_ssl_context(
+            cafile=self.config.kafka.cafile,
+            certfile=self.config.kafka.cert,
+            keyfile=self.config.kafka.key,
+            password=self.config.kafka.passwd,
+        )
         self.producer = aiokafka.AIOKafkaProducer(
             loop=self.loop,
-            bootstrap_servers=self.config.kafka.servers)
+            bootstrap_servers=self.config.kafka.servers,
+            security_protocol="SSL",
+            ssl_context=context,
+        )
 
     async def produce(self):
         """
@@ -96,6 +106,7 @@ class Producer(Service):
         that reads from the queue and sends the messages to the topic defined
         in the config.
         """
+        self.logger.info(self.config)
         await self.producer.start()
         try:
             while True:
