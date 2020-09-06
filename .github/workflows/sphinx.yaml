@@ -1,0 +1,28 @@
+name: documentation
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-delpoy:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install Tox and any other packages
+        run: pip install tox
+      - name: Build Sphinx docs
+        run: tox -e docs
+      - name: Deploy
+        if: success()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/build/html/
