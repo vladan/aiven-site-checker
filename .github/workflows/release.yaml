@@ -21,7 +21,8 @@ jobs:
           python-version: ${{ matrix.python }}
       - name: Install tox
         run: pip install tox
-      - name: Build release with tox
+      - name: Create release with tox
+        id: create_release
         run: tox -e release
       - name: Upload Release Asset
         id: upload-release-asset
