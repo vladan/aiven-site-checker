@@ -49,13 +49,14 @@ def create_config(conf: Dict[str, Any]):
     pg_port = os.getenv('POSTGRES_PORT')
     pg_user = os.getenv('POSTGRES_USER')
     pg_pass = os.getenv('POSTGRES_PASS')
+    pg_cert = os.getenv('POSTGRES_CERT')
 
     config = Config(**conf)
     config.kafka.servers = (kafka_servers if kafka_servers_env
                             else config.kafka.servers)
     config.kafka.topic = kafka_topic or config.kafka.topic
     config.kafka.cafile = kafka_cafile or config.kafka.cafile
-    config.kafka.cert = kafka_topic or config.kafka.cert
+    config.kafka.cert = kafka_cert or config.kafka.cert
     config.kafka.key = kafka_key or config.kafka.key
     config.kafka.passwd = kafka_pass or config.kafka.passwd
 
@@ -65,5 +66,6 @@ def create_config(conf: Dict[str, Any]):
                               else config.postgres.dbport)
     config.postgres.dbuser = pg_user or config.postgres.dbuser
     config.postgres.dbpass = pg_pass or config.postgres.dbpass
+    config.postgres.dbcert = pg_cert or config.postgres.dbcert
 
     return config
