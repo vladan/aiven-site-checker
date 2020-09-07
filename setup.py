@@ -7,7 +7,7 @@ from setuptools import setup  # type: ignore
 setup(
     use_scm_version=True,
     setup_requires=['setuptools_scm'],
-    python_requires='>=3.8, <4',
+    python_requires='>=3.6, <4',
     install_requires=[
         'aiokafka==0.6.0',
         'asyncpg==0.21.0',
