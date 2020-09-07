@@ -13,9 +13,9 @@ Features
 ========
 
 * Easy and intuitive YAML configuration.
+* Environment configuration.
 * Command line executables for the checker and the consumer/psql writer:
   ``chweb_collect`` and ``chweb_consume``.
-* Environment configuration.
 
 
 .. toctree::
