@@ -1,3 +1,4 @@
+====================
 Running the services
 ====================
 
@@ -19,6 +20,8 @@ Both of them need a configuration file to start, e.g.::
 
 Configuration
 -------------
+
+.. highlight:: yaml
 
 Both cli scripts use the same config file to simplify deployment. You only set
 it up once and supply it to the scripts on their locations.

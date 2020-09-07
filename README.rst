@@ -20,18 +20,8 @@ platform, using their `kafka <https://aiven.io/kafka>`_ and `postgresql
 <https://aiven.io/postgresql>`_ services.
 
 
-Quickstart
-==========
-
-Easiest way to start the application is to clone it, install it and run the
-console scripts via the command line::
-
-    pip install .
-    chweb_collect -c config.yaml &
-    chweb_consume -c config.yaml &
-
-Using docker-compose
---------------------
+Quickstart with docker-compose
+==============================
 
 The services can be run with docker-compose. You'd need to change the values of
 ``KAFKA_SERVERS``, ``POSTGRES_HOST`` and ``POSTGRES_PASS`` in order for
@@ -45,8 +35,14 @@ saving it to ``pgcert.pem``. After all this is done, simply run::
 Config file
 ===========
 
+There's an example config file in the top-level dir of the repository, named
+``config.yaml`` that you can use as a reference. Some explanation on the main
+sections are listed below.
+
 Sites
 -----
+
+.. highlight:: yaml
 
 You can specify the sites you want checked in the yaml config file. They are
 stored in the ``sites`` key and are represented as a list of objects with
@@ -65,8 +61,6 @@ regex expression::
 
 Logging configuration
 ---------------------
-
-.. highlight:: yaml
 
 The ``logging`` section must be present. A simple example of a console logger
 as seen in ``config.yaml``::
@@ -132,51 +126,3 @@ set up you get a config section similar to this one::
 * ``cafile``, ``cert`` and ``key`` are the ssl certificates you get when aivens
   kafka service is ready.
 * ``password`` is not needed afaik, but you can give it a go.
-
-Full config file
-================
-
-while reading about the config values might be good, here's a better
-all-in-one config file, which ofc you'd need to update with your own values::
-
-    kafka:
-      servers:
-      - "kafka-f7ae38e-vladanovic-4654.aivencloud.com:23702"
-      topic: "sitestats"
-      cafile: "./certs/ca.pem"
-      cert: "./certs/service.cert"
-      key: "./certs/service.key"
-      passwd: ""
-    postgres:
-      dbhost: "pg-2e0f365c-vladanovic-4654.aivencloud.com"
-      dbport: 23700
-      dbname: "defaultdb"
-      dbuser: "avnadmin"
-      dbpass: ""
-      dbcert: "./certs/pg.pem"
-    sites:
-    - url: "https://dsadakjhkjsahkjh.com"
-      regex: "domain"
-      check_interval: 5
-    - url: "https://example.com"
-      regex: "aaaaaaaaaaaaa"
-      check_interval: 8
-    - url: "https://example.com/404"
-      check_interval: 13
-    logging:
-      version: 1
-      formatters:
-        standard:
-          format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-        error:
-          format: "%(levelname)s <PID %(process)d:%(processName)s> %(name)s.%(funcName)s(): %(message)s"
-      handlers:
-        console:
-          class: logging.StreamHandler
-          level: DEBUG
-          formatter: standard
-          stream: ext://sys.stdout
-      root:
-        level: DEBUG
-        handlers: [console]
-        propogate: yes
