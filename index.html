@@ -35,11 +35,20 @@
     <div class="inner">
   <h3><a href="#">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">chweb - Check websites state</a><ul>
-<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#">chweb - Check websites state</a></li>
+<li><a class="reference internal" href="#website-checker-demo">Website checker demo</a><ul>
+<li><a class="reference internal" href="#quickstart-with-docker-compose">Quickstart with docker-compose</a></li>
+<li><a class="reference internal" href="#config-file">Config file</a><ul>
+<li><a class="reference internal" href="#sites">Sites</a></li>
+<li><a class="reference internal" href="#logging-configuration">Logging configuration</a></li>
+<li><a class="reference internal" href="#postgres">Postgres</a></li>
+<li><a class="reference internal" href="#id1">Kafka</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#features">Features</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
@@ -73,10 +82,124 @@
       
   <div class="section" id="chweb-check-websites-state">
 <h1>chweb - Check websites state<a class="headerlink" href="#chweb-check-websites-state" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="website-checker-demo">
+<h1>Website checker demo<a class="headerlink" href="#website-checker-demo" title="Permalink to this headline">¶</a></h1>
+<a class="reference external image-reference" href="https://github.com/vladan/aiven-site-checker/actions?query=workflow%3Abuild+branch%3Amaster"><img alt="https://github.com/vladan/aiven-site-checker/workflows/build/badge.svg" src="https://github.com/vladan/aiven-site-checker/workflows/build/badge.svg" /></a>
+<a class="reference external image-reference" href="https://vladan.github.io/aiven-site-checker/"><img alt="https://github.com/vladan/aiven-site-checker/workflows/documentation/badge.svg" src="https://github.com/vladan/aiven-site-checker/workflows/documentation/badge.svg" /></a>
 <p>CHWEB is a website checking tool.</p>
-<p>ATM in its very early stages meant to demo
-<a class="reference external" href="https://aiven.io">aiven</a>’s platform, using their <a class="reference external" href="https://aiven.io/kafka">kafka</a> and <a class="reference external" href="https://aiven.io/postgresql">postgresql</a>
-services.</p>
+<p>It sends HTTP requests to sites with the intent to check their status /
+availibility, and if the <code class="docutils literal notranslate"><span class="pre">regex</span></code> param is specified, it runs it against the
+response body. The retreived status check is sent to a Kafka topic. When
+read by the consumer, the status check is written in a PostgreSQL database.</p>
+<p>ATM in its very early stages meant to demo <a class="reference external" href="https://aiven.io">aiven</a>’s
+platform, using their <a class="reference external" href="https://aiven.io/kafka">kafka</a> and <a class="reference external" href="https://aiven.io/postgresql">postgresql</a> services.</p>
+<div class="section" id="quickstart-with-docker-compose">
+<h2>Quickstart with docker-compose<a class="headerlink" href="#quickstart-with-docker-compose" title="Permalink to this headline">¶</a></h2>
+<p>The services can be run with docker-compose. You’d need to change the values of
+<code class="docutils literal notranslate"><span class="pre">KAFKA_SERVERS</span></code>, <code class="docutils literal notranslate"><span class="pre">POSTGRES_HOST</span></code> and <code class="docutils literal notranslate"><span class="pre">POSTGRES_PASS</span></code> in order for
+the configuration to be properly applied. Also, you’d need to download the
+kafka certificates and put them in the folder you’re running docker-composer
+from and create the PostgreSQL cert by copying it from aivens console and
+saving it to <code class="docutils literal notranslate"><span class="pre">pgcert.pem</span></code>. After all this is done, simply run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="config-file">
+<h2>Config file<a class="headerlink" href="#config-file" title="Permalink to this headline">¶</a></h2>
+<p>There’s an example config file in the top-level dir of the repository, named
+<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> that you can use as a reference. Some explanation on the main
+sections are listed below.</p>
+<div class="section" id="sites">
+<h3>Sites<a class="headerlink" href="#sites" title="Permalink to this headline">¶</a></h3>
+<p>You can specify the sites you want checked in the yaml config file. They are
+stored in the <code class="docutils literal notranslate"><span class="pre">sites</span></code> key and are represented as a list of objects with
+<code class="docutils literal notranslate"><span class="pre">url</span></code> and <code class="docutils literal notranslate"><span class="pre">check_interval</span></code> as mandatory fields, and regex as an optional
+field that can freely omitted which checks the body of the response against the
+regex expression:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">url</span><span class="p">:</span> <span class="s">&quot;https://example.com&quot;</span>
+  <span class="nt">regex</span><span class="p">:</span> <span class="s">&quot;domain&quot;</span> <span class="c1"># a regex matching the body of the response</span>
+  <span class="nt">check_interval</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="p p-Indicator">-</span> <span class="nt">url</span><span class="p">:</span> <span class="s">&quot;https://example.com&quot;</span>
+  <span class="nt">regex</span><span class="p">:</span> <span class="s">&quot;aaaaaaaa&quot;</span> <span class="c1"># a regex not matching the body of the response</span>
+  <span class="nt">check_interval</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="p p-Indicator">-</span> <span class="nt">url</span><span class="p">:</span> <span class="s">&quot;https://example.com/404&quot;</span>
+  <span class="nt">check_interval</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">13</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="logging-configuration">
+<h3>Logging configuration<a class="headerlink" href="#logging-configuration" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">logging</span></code> section must be present. A simple example of a console logger
+as seen in <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">logging</span><span class="p">:</span>
+  <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+  <span class="nt">formatters</span><span class="p">:</span>
+    <span class="nt">standard</span><span class="p">:</span>
+      <span class="nt">format</span><span class="p">:</span> <span class="s">&quot;%(asctime)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(name)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(levelname)s</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">%(message)s&quot;</span>
+    <span class="nt">error</span><span class="p">:</span>
+      <span class="nt">format</span><span class="p">:</span> <span class="s">&quot;%(levelname)s</span><span class="nv"> </span><span class="s">&lt;PID</span><span class="nv"> </span><span class="s">%(process)d:%(processName)s&gt;</span><span class="nv"> </span><span class="s">%(name)s.%(funcName)s():</span><span class="nv"> </span><span class="s">%(message)s&quot;</span>
+  <span class="nt">handlers</span><span class="p">:</span>
+    <span class="nt">console</span><span class="p">:</span>
+      <span class="nt">class</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">logging.StreamHandler</span>
+      <span class="nt">level</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">DEBUG</span>
+      <span class="nt">formatter</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">standard</span>
+      <span class="nt">stream</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ext://sys.stdout</span>
+  <span class="nt">root</span><span class="p">:</span>
+    <span class="nt">level</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">DEBUG</span>
+    <span class="nt">handlers</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">console</span><span class="p p-Indicator">]</span>
+    <span class="nt">propogate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">yes</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="postgres">
+<h3>Postgres<a class="headerlink" href="#postgres" title="Permalink to this headline">¶</a></h3>
+<p>Postgres settings with aivens certs, passwords, etc. You’ll get them once you
+setup the postgres service on <a class="reference external" href="https://console.aiven.io/">https://console.aiven.io/</a>. My postgres section
+in the config looks like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">postgres</span><span class="p">:</span>
+  <span class="nt">dbhost</span><span class="p">:</span> <span class="s">&quot;pg-2e0f365c-vladanovic-4654.aivencloud.com&quot;</span>
+  <span class="nt">dbport</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">23700</span>
+  <span class="nt">dbname</span><span class="p">:</span> <span class="s">&quot;defaultdb&quot;</span>
+  <span class="nt">dbuser</span><span class="p">:</span> <span class="s">&quot;avnadmin&quot;</span>
+  <span class="nt">dbpass</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+  <span class="nt">dbcert</span><span class="p">:</span> <span class="s">&quot;./certs/pg.pem&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dbhost</span></code> and <code class="docutils literal notranslate"><span class="pre">dbport</span></code>, <code class="docutils literal notranslate"><span class="pre">dbuser</span></code> and <code class="docutils literal notranslate"><span class="pre">dbpass</span></code> are straightforward.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">defaultdb</span></code> is the database present by default, when the service is
+created. You can create another database if it rocks your boat.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dbcert</span></code> is the cert which opens in a modal popup in the console. You need
+to copy it manually to a file on a path you later state in the config.</p></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h3>Kafka<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Kafka is also a service easily provisioned through aivens console. After it’s
+set up you get a config section similar to this one:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kafka</span><span class="p">:</span>
+  <span class="nt">servers</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="s">&quot;kafka-f7ae38e-vladanovic-4654.aivencloud.com:23702&quot;</span>
+  <span class="nt">topic</span><span class="p">:</span> <span class="s">&quot;sitestats&quot;</span>
+  <span class="nt">cafile</span><span class="p">:</span> <span class="s">&quot;./certs/ca.pem&quot;</span>
+  <span class="nt">cert</span><span class="p">:</span> <span class="s">&quot;./certs/service.cert&quot;</span>
+  <span class="nt">key</span><span class="p">:</span> <span class="s">&quot;./certs/service.key&quot;</span>
+  <span class="nt">passwd</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">servers</span></code> is a list because that’s how the library is initialized, which
+makes sense if you have multiple brokers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">topic</span></code> is the kafka topic messages are sent to. You need to define it in
+aivens console as well.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cafile</span></code>, <code class="docutils literal notranslate"><span class="pre">cert</span></code> and <code class="docutils literal notranslate"><span class="pre">key</span></code> are the ssl certificates you get when aivens
+kafka service is ready.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">password</span></code> is not needed afaik, but you can give it a go.</p></li>
+</ul>
+</div>
+</div>
 <div class="section" id="features">
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -94,14 +217,14 @@ services.</p>
 </ul>
 </div>
 </div>
-</div>
 <div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
+</div>
 </div>
 
   <div class="t-pagination clearfix">
