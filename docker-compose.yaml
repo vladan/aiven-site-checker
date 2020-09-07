@@ -1,0 +1,42 @@
+version: "3"
+services:
+  collector:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      KAFKA_SERVERS: "AIVEN_KAFKA_SERVER"
+      KAFKA_TOPIC: "sitestats"
+      KAFKA_CA_FILE: "/etc/kafka_ca.pem"
+      KAFKA_CERT: "/etc/kafka_service.cert"
+      KAFKA_KEY: "/etc/kafka_service.key"
+    volumes:
+    - ./config.yaml:/etc/checker.yaml
+    - ./ca.pem:/etc/kafka_ca.pem
+    - ./service.cert:/etc/kafka_service.cert
+    - ./service.key:/etc/kafka_service.key
+    command: chweb_collect
+
+  consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      KAFKA_SERVERS: "AIVEN_KAFKA_SERVER"
+      KAFKA_TOPIC: "sitestats"
+      KAFKA_CA_FILE: "/etc/kafka_ca.pem"
+      KAFKA_CERT: "/etc/kafka_service.cert"
+      KAFKA_KEY: "/etc/kafka_service.key"
+      POSTGRES_DB: "defaultdb"
+      POSTGRES_HOST: "AIVEN_PG_SERVER"
+      POSTGRES_PORT: 23700
+      POSTGRES_USER: "avnadmin"
+      POSTGRES_PASS: ""
+      POSTGRES_CERT: "/etc/pgcert.pem"
+    volumes:
+    - ./config.yaml:/etc/checker.yaml
+    - ./ca.pem:/etc/kafka_ca.pem
+    - ./service.cert:/etc/kafka_service.cert
+    - ./service.key:/etc/kafka_service.key
+    - ./pgcert.pem:/etc/pgcert.pem
+    command: chweb_consume
