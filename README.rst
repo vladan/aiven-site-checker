@@ -2,8 +2,8 @@
 Website checker demo
 ====================
 
-.. image:: https://github.com/vladan/aiven-site-checker/workflows/build/badge.svg
-   :target: https://github.com/vladan/aiven-site-checker/actions?query=workflow%3Abuild+branch%3Amaster
+.. image:: https://github.com/vladan/aiven-site-checker/workflows/unittests/badge.svg
+   :target: https://github.com/vladan/aiven-site-checker/actions?query=workflow%3Aunittests+branch%3Amaster
 
 .. image:: https://github.com/vladan/aiven-site-checker/workflows/documentation/badge.svg
    :target: https://vladan.github.io/aiven-site-checker/
