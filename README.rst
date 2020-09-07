@@ -30,6 +30,21 @@ console scripts via the command line::
     chweb_collect -c config.yaml &
     chweb_consume -c config.yaml &
 
+Using docker-compose
+--------------------
+
+The services can be run with docker-compose. You'd need to change the values of
+``KAFKA_SERVERS``, ``POSTGRES_HOST`` and ``POSTGRES_PASS`` in order for
+the configuration to be properly applied. Also, you'd need to download the
+kafka certificates and put them in the folder you're running docker-composer
+from and create the PostgreSQL cert by copying it from aivens console and
+saving it to ``pgcert.pem``. After all this is done, simply run::
+
+    docker-compose up
+
+Config file
+===========
+
 Sites
 -----
 
