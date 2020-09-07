@@ -21,15 +21,30 @@ jobs:
           python-version: ${{ matrix.python }}
       - name: Install tox
         run: pip install tox
-      - name: Create release with tox
-        id: create_release
-        run: tox -e release
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
+      - name: Build wheel
+        id: build_wheel
+        run: |
+          tox -e release
+          echo ::set-output name=wheel_name::chweb-$(python setup.py --version)-py3-none-any.whl
+      - name: Create release
+        uses: actions/create-release@v1
+        id: release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/*
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Check wheel name
+        run: echo ${{ steps.build_wheel.outputs.wheel_name }}
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ./dist/${{ steps.build_wheel.outputs.wheel_name }}
+          asset_name: ${{ steps.build_wheel.outputs.wheel_name }}
           asset_content_type: application/zip
