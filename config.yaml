@@ -19,7 +19,7 @@ sites:
   regex: "domain"
   check_interval: 17
 - url: "https://github.com/status"
-  regex: "^Github lives!.*"
+  regex: "^GitHub lives!.*"
   check_interval: 31
 - url: "https://medium.com/status"
   check_interval: 11
