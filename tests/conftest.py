@@ -21,6 +21,7 @@ def config():
             'dbname': "chweb",
             'dbuser': "vladan",
             'dbpass': "",
+            'batch_size': 3,
         },
         'sites': [{
             'url': "https://example.com",
@@ -69,3 +70,27 @@ def check():
         status=200,
         url="https://example.com",
     )
+
+
+@pytest.fixture
+def three_checks():
+    return [
+        Check(
+            domain="example.com",
+            response_time=51,
+            status=200,
+            url="https://example.com",
+        ),
+        Check(
+            domain="example.com/200",
+            response_time=65,
+            status=200,
+            url="https://example.com",
+        ),
+        Check(
+            domain="example.com/404",
+            response_time=35,
+            status=404,
+            url="https://example.com",
+        ),
+    ]
