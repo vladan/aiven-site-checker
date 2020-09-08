@@ -96,7 +96,7 @@
 </ul>
 <dl class="py class">
 <dt id="chweb.models.Check">
-<em class="property">class </em><code class="sig-prename descclassname">chweb.models.</code><code class="sig-name descname">Check</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">domain</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">regex</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">regex_matches</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">request_time</span><span class="p">:</span> <span class="n">datetime.datetime</span> <span class="o">=</span> <span class="default_value">datetime.datetime(2020, 9, 7, 20, 4, 46, 849548)</span></em>, <em class="sig-param"><span class="n">response_time</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">status</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">url</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.models.Check" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">chweb.models.</code><code class="sig-name descname">Check</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">domain</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">regex</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">regex_matches</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">request_time</span><span class="p">:</span> <span class="n">datetime.datetime</span> <span class="o">=</span> <span class="default_value">datetime.datetime(2020, 9, 8, 22, 28, 30, 728984)</span></em>, <em class="sig-param"><span class="n">response_time</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">status</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">url</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.models.Check" title="Permalink to this definition">¶</a></dt>
 <dd><p>Information for a website check request.</p>
 <dl class="py class">
 <dt id="chweb.models.Check.Config">
@@ -205,8 +205,13 @@ consumer / postgres writer for simplicity while deploying.</p>
 
 <dl class="py class">
 <dt id="chweb.models.PostgresConfig">
-<em class="property">class </em><code class="sig-prename descclassname">chweb.models.</code><code class="sig-name descname">PostgresConfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">dbhost</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'localhost'</span></em>, <em class="sig-param"><span class="n">dbport</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">5432</span></em>, <em class="sig-param"><span class="n">dbname</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'chweb'</span></em>, <em class="sig-param"><span class="n">dbuser</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'vladan'</span></em>, <em class="sig-param"><span class="n">dbpass</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">dbcert</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.models.PostgresConfig" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">chweb.models.</code><code class="sig-name descname">PostgresConfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">dbhost</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'localhost'</span></em>, <em class="sig-param"><span class="n">dbport</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">5432</span></em>, <em class="sig-param"><span class="n">dbname</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'chweb'</span></em>, <em class="sig-param"><span class="n">dbuser</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'vladan'</span></em>, <em class="sig-param"><span class="n">dbpass</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">dbcert</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.models.PostgresConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>PostgreSQL server configuration.</p>
+<dl class="py attribute">
+<dt id="chweb.models.PostgresConfig.batch_size">
+<code class="sig-name descname">batch_size</code><em class="property">: int</em><a class="headerlink" href="#chweb.models.PostgresConfig.batch_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py attribute">
 <dt id="chweb.models.PostgresConfig.dbcert">
 <code class="sig-name descname">dbcert</code><em class="property">: str</em><a class="headerlink" href="#chweb.models.PostgresConfig.dbcert" title="Permalink to this definition">¶</a></dt>
@@ -341,20 +346,26 @@ are saved in the database.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="chweb.consumer.Db">
-<em class="property">class </em><code class="sig-prename descclassname">chweb.consumer.</code><code class="sig-name descname">Db</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">loop</span><span class="p">:</span> <span class="n">asyncio.events.AbstractEventLoop</span></em>, <em class="sig-param"><span class="n">logger</span><span class="p">:</span> <span class="n">logging.Logger</span></em>, <em class="sig-param"><span class="n">pgconf</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#chweb.models.PostgresConfig" title="chweb.models.PostgresConfig">chweb.models.PostgresConfig</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.Db" title="Permalink to this definition">¶</a></dt>
+<dt id="chweb.consumer.DbWriter">
+<em class="property">class </em><code class="sig-prename descclassname">chweb.consumer.</code><code class="sig-name descname">DbWriter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#chweb.models.Config" title="chweb.models.Config">chweb.models.Config</a></span></em>, <em class="sig-param"><span class="n">logger</span><span class="p">:</span> <span class="n">logging.Logger</span></em>, <em class="sig-param"><span class="n">event_loop</span><span class="p">:</span> <span class="n">asyncio.events.AbstractEventLoop</span></em>, <em class="sig-param"><span class="n">queue</span><span class="p">:</span> <span class="n">asyncio.queues.Queue</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.DbWriter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Database operations and handy helpers.</p>
 <dl class="py method">
-<dt id="chweb.consumer.Db.save">
-<em class="property">async </em><code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#chweb.models.Check" title="chweb.models.Check">chweb.models.Check</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.Db.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes a single record in the database. This is not very optimal, a
-better way would be to write a batch of status checks at once.</p>
+<dt id="chweb.consumer.DbWriter.connect">
+<em class="property">async </em><code class="sig-name descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.DbWriter.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects to the database and stores the connection in <code class="docutils literal notranslate"><span class="pre">self.conn</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="chweb.consumer.Db.setup">
-<em class="property">async </em><code class="sig-name descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.Db.setup" title="Permalink to this definition">¶</a></dt>
+<dt id="chweb.consumer.DbWriter.setup">
+<em class="property">async </em><code class="sig-name descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.DbWriter.setup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Setup the database, i.e. create the table and set up the indexes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="chweb.consumer.DbWriter.write">
+<em class="property">async </em><code class="sig-name descname">write</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.DbWriter.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a batch of records to the databse. The size in the batch is
+defined in <code class="docutils literal notranslate"><span class="pre">chweb.models.PostgresConfig.batch_size</span></code>.</p>
 </dd></dl>
 
 </dd></dl>
