@@ -13,15 +13,22 @@ postgres:
   dbuser: "avnadmin"
   dbpass: ""
   dbcert: "./certs/pg.pem"
+  batch_size: 10
 sites:
-- url: "https://dsadakjhkjsahkjh.com"
-  regex: "domain"
-  check_interval: 5
 - url: "https://example.com"
-  regex: "aaaaaaaaaaaaa"
-  check_interval: 8
-- url: "https://example.com/404"
-  check_interval: 13
+  regex: "domain"
+  check_interval: 17
+- url: "https://github.com/status"
+  regex: "^Github lives!.*"
+  check_interval: 31
+- url: "https://medium.com/status"
+  check_interval: 11
+- url: "https://help.netflix.com/en/is-netflix-down"
+  regex: "Netflix is up"
+  check_interval: 37
+- url: "https://status.aiven.io/"
+  regex: "All Systems Operational"
+  check_interval: 43
 logging:
   version: 1
   formatters:

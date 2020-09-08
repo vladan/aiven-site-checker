@@ -4,7 +4,7 @@ A module containing all console script functions.
 import asyncio
 
 from chweb.collector import Collector, Producer
-from chweb.consumer import Consumer
+from chweb.consumer import Consumer, DbWriter
 from chweb.config import configure
 
 
@@ -18,9 +18,11 @@ def collect():
     config, logger = configure("collector")
     logger.info("Starting collector for %d sites.", len(config.sites))
     collector = Collector(config, logger, loop, queue)
+
     logger.info(("Starting kafka producer on kafka [cluster]/topic: "
                  "%s/%s"), config.kafka.servers, config.kafka.topic)
     producer = Producer(config, logger, loop, queue)
+
     loop.run_until_complete(asyncio.gather(collector(), producer()))
 
 
@@ -35,4 +37,10 @@ def consume():
     logger.info(("Starting kafka consumer on kafka [cluster]/topic: "
                  "%s/%s"), config.kafka.servers, config.kafka.topic)
     consumer = Consumer(config, logger, loop, queue)
-    loop.run_until_complete(consumer())
+
+    logger.info(("Starting database writer to %s@%s:%d/%s"),
+                config.postgres.dbuser, config.postgres.dbhost,
+                config.postgres.dbport, config.postgres.dbname)
+    db_writer = DbWriter(config, logger, loop, queue)
+
+    loop.run_until_complete(asyncio.gather(consumer(), db_writer()))

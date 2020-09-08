@@ -49,6 +49,7 @@ class PostgresConfig(BaseModel):
     dbuser: str = "vladan"
     dbpass: str = ""
     dbcert: str = ""
+    batch_size: int = 5
 
 
 class SiteConfig(BaseModel):

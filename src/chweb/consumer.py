@@ -12,7 +12,7 @@ from aiokafka.helpers import create_ssl_context  # type: ignore
 import asyncpg  # type: ignore
 
 from chweb.base import Service
-from chweb.models import Check, Config, PostgresConfig
+from chweb.models import Check, Config
 
 
 class Consumer(Service):
@@ -27,7 +27,6 @@ class Consumer(Service):
                  event_loop: asyncio.AbstractEventLoop,
                  queue: asyncio.Queue):
         super().__init__(config, logger, event_loop, queue)
-        self.db = Db(self.loop, self.logger, self.config.postgres)
         context = create_ssl_context(
             cafile=self.config.kafka.cafile,
             certfile=self.config.kafka.cert,
@@ -48,14 +47,13 @@ class Consumer(Service):
         """
         await self.consumer.start()
         try:
-            await self.db.setup()
             async for msg in self.consumer:
                 # if anything here fails break the loop and exit since it's
                 # something out of our control and we don't want to work
                 # with broken data
                 check = Check(**json.loads(msg.value))
                 self.logger.debug(check)
-                await self.db.save(check)
+                self.queue.put_nowait(check)
         except Exception as exc:
             self.logger.exception(exc)
             self.logger.info("Exiting due to previous errors!")
@@ -66,33 +64,42 @@ class Consumer(Service):
         return self.consume()
 
 
-class Db:
+class DbWriter(Service):
     """
     Database operations and handy helpers.
     """
 
-    def __init__(self, loop: asyncio.AbstractEventLoop, logger: logging.Logger,
-                 pgconf: PostgresConfig):
-        self.loop = loop
-        self.logger = logger
-        # Do a side effect here since without this there's not any point for
-        # the application to start. Applies for tests as well.
+    def __init__(self, config: Config,
+                 logger: logging.Logger,
+                 event_loop: asyncio.AbstractEventLoop,
+                 queue: asyncio.Queue):
+        super().__init__(config, logger, event_loop, queue)
         self.conn: Optional[asyncpg.Connection] = None
-        self.conf = pgconf
+
+    async def connect(self):
+        """
+        Connects to the database and stores the connection in ``self.conn``.
+        """
+        try:
+            self.conn = await asyncpg.connect(
+                host=self.config.postgres.dbhost,
+                port=self.config.postgres.dbport,
+                user=self.config.postgres.dbuser,
+                password=self.config.postgres.dbpass,
+                database=self.config.postgres.dbname,
+                loop=self.loop, timeout=60,
+                ssl=ssl.create_default_context(
+                    cafile=self.config.postgres.dbcert),
+            )
+        except (OSError, asyncio.TimeoutError, ConnectionError) as exc:
+            self.logger.error(exc)
+            raise
 
     async def setup(self):
         """
         Setup the database, i.e. create the table and set up the indexes.
         """
-        self.conn = await asyncpg.connect(
-            host=self.conf.dbhost,
-            port=self.conf.dbport,
-            user=self.conf.dbuser,
-            password=self.conf.dbpass,
-            database=self.conf.dbname,
-            loop=self.loop, timeout=60,
-            ssl=ssl.create_default_context(cafile=self.conf.dbcert),
-        )
+        await self.connect()
         await self.conn.execute('''
             CREATE TABLE IF NOT EXISTS statuses(
                 id SERIAL PRIMARY KEY,
@@ -116,21 +123,32 @@ class Db:
             statuses_regex_matches ON statuses(regex_matches);
             ''')
 
-    async def save(self, data: Check):
+    async def write(self):
         """
-        Writes a single record in the database. This is not very optimal, a
-        better way would be to write a batch of status checks at once.
+        Writes a batch of records to the databse. The size in the batch is
+        defined in ``chweb.models.PostgresConfig.batch_size``.
         """
-        if self.conn is not None:
-            try:
-                await self.conn.execute(
-                    '''INSERT INTO statuses (domain, regex, regex_matches,
-                                          request_time, response_time,
-                                          status, url)
-                    VALUES($1, $2, $3, $4, $5, $6, $7)''',
-                    data.domain, data.regex, data.regex_matches,
-                    data.request_time, data.response_time, data.status,
-                    data.url)
-            except asyncpg.PostgresError as exc:
-                self.logger.error("error in query %s", exc)
-                raise
+        await self.setup()
+
+        batch = []
+        while True:
+            if len(batch) < self.config.postgres.batch_size:
+                check = await self.queue.get()
+                batch.append(check)
+            else:
+                records = [(c.domain, c.regex, c.regex_matches, c.request_time,
+                            c.response_time, c.status, c.url) for c in batch]
+                columns = ["domain", "regex", "regex_matches", "request_time",
+                           "response_time", "status", "url"]
+                try:
+                    result = await self.conn.copy_records_to_table(
+                        "statuses", records=records, columns=columns)
+                    self.logger.info(("Inserted %d records in the database "
+                                      "with result %s"), len(records), result)
+                except Exception as exc:
+                    self.logger.error("error in query %s", exc)
+                    raise
+                batch = []
+
+    def __call__(self) -> asyncio.Future:
+        return self.write()
