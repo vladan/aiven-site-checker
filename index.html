@@ -37,7 +37,10 @@
   <ul>
 <li><a class="reference internal" href="#">chweb - Check websites state</a></li>
 <li><a class="reference internal" href="#website-checker-demo">Website checker demo</a><ul>
-<li><a class="reference internal" href="#quickstart-with-docker-compose">Quickstart with docker-compose</a></li>
+<li><a class="reference internal" href="#quickstart-with-docker-compose">Quickstart with docker-compose</a><ul>
+<li><a class="reference internal" href="#no-docker">No docker?</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#config-file">Config file</a><ul>
 <li><a class="reference internal" href="#sites">Sites</a></li>
 <li><a class="reference internal" href="#logging-configuration">Logging configuration</a></li>
@@ -104,6 +107,23 @@ from and create the PostgreSQL cert by copying it from aivens console and
 saving it to <code class="docutils literal notranslate"><span class="pre">pgcert.pem</span></code>. After all this is done, simply run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span>
 </pre></div>
+</div>
+<div class="section" id="no-docker">
+<h3>No docker?<a class="headerlink" href="#no-docker" title="Permalink to this headline">¶</a></h3>
+<p>if you haven’t got, or don’t want to use docker, then you can install this
+package and run it manually.</p>
+<p>Install the latest dev version from the github repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">vladan</span><span class="o">/</span><span class="n">aiven</span><span class="o">-</span><span class="n">site</span><span class="o">-</span><span class="n">checker</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>Run the website status collector in one terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chweb_collect</span> <span class="o">-</span><span class="n">c</span> <span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
+<p>and the consumer in another:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chweb_consume</span> <span class="o">-</span><span class="n">c</span> <span class="n">config</span><span class="o">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="config-file">
