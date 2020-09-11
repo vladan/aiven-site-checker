@@ -32,6 +32,24 @@ saving it to ``pgcert.pem``. After all this is done, simply run::
 
     docker-compose up
 
+No docker?
+----------
+
+if you haven't got, or don't want to use docker, then you can install this
+package and run it manually.
+
+Install the latest dev version from the github repository::
+
+    pip install git+https://github.com/vladan/aiven-site-checker.git
+
+Run the website status collector in one terminal::
+
+    chweb_collect -c config.yaml
+
+and the consumer in another::
+
+    chweb_consume -c config.yaml
+
 Config file
 ===========
 
