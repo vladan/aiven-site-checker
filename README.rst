@@ -113,7 +113,7 @@ in the config looks like this::
       dbport: 23700
       dbname: "defaultdb"
       dbuser: "avnadmin"
-      dbpass: ""
+      dbpass: "..."
       dbcert: "./certs/pg.pem"
 
 * ``dbhost`` and ``dbport``, ``dbuser`` and ``dbpass`` are straightforward.
@@ -135,7 +135,7 @@ set up you get a config section similar to this one::
       cafile: "./certs/ca.pem"
       cert: "./certs/service.cert"
       key: "./certs/service.key"
-      passwd: ""
+      passwd: "..."
 
 * ``servers`` is a list because that's how the library is initialized, which
   makes sense if you have multiple brokers.
@@ -143,4 +143,4 @@ set up you get a config section similar to this one::
   aivens console as well.
 * ``cafile``, ``cert`` and ``key`` are the ssl certificates you get when aivens
   kafka service is ready.
-* ``password`` is not needed afaik, but you can give it a go.
+* ``password`` your aiven provided password.
