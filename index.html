@@ -16,7 +16,6 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="chweb">
   <meta property="og:title" content="chweb - Check websites state">
@@ -183,7 +182,7 @@ in the config looks like this:</p>
   <span class="nt">dbport</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">23700</span>
   <span class="nt">dbname</span><span class="p">:</span> <span class="s">&quot;defaultdb&quot;</span>
   <span class="nt">dbuser</span><span class="p">:</span> <span class="s">&quot;avnadmin&quot;</span>
-  <span class="nt">dbpass</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+  <span class="nt">dbpass</span><span class="p">:</span> <span class="s">&quot;...&quot;</span>
   <span class="nt">dbcert</span><span class="p">:</span> <span class="s">&quot;./certs/pg.pem&quot;</span>
 </pre></div>
 </div>
@@ -206,7 +205,7 @@ set up you get a config section similar to this one:</p>
   <span class="nt">cafile</span><span class="p">:</span> <span class="s">&quot;./certs/ca.pem&quot;</span>
   <span class="nt">cert</span><span class="p">:</span> <span class="s">&quot;./certs/service.cert&quot;</span>
   <span class="nt">key</span><span class="p">:</span> <span class="s">&quot;./certs/service.key&quot;</span>
-  <span class="nt">passwd</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+  <span class="nt">passwd</span><span class="p">:</span> <span class="s">&quot;...&quot;</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -216,7 +215,7 @@ makes sense if you have multiple brokers.</p></li>
 aivens console as well.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cafile</span></code>, <code class="docutils literal notranslate"><span class="pre">cert</span></code> and <code class="docutils literal notranslate"><span class="pre">key</span></code> are the ssl certificates you get when aivens
 kafka service is ready.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">password</span></code> is not needed afaik, but you can give it a go.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">password</span></code> your aiven provided password.</p></li>
 </ul>
 </div>
 </div>

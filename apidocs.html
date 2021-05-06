@@ -16,7 +16,6 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="chweb">
   <meta property="og:title" content="API documentation on all modules present in the package">
@@ -81,7 +80,7 @@
 <p>Base classes used in multiple modules.</p>
 <dl class="py class">
 <dt id="chweb.base.Service">
-<em class="property">class </em><code class="sig-prename descclassname">chweb.base.</code><code class="sig-name descname">Service</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#chweb.models.Config" title="chweb.models.Config">chweb.models.Config</a></span></em>, <em class="sig-param"><span class="n">logger</span><span class="p">:</span> <span class="n">logging.Logger</span></em>, <em class="sig-param"><span class="n">event_loop</span><span class="p">:</span> <span class="n">asyncio.events.AbstractEventLoop</span></em>, <em class="sig-param"><span class="n">queue</span><span class="p">:</span> <span class="n">asyncio.queues.Queue</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.base.Service" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">chweb.base.</span></code><code class="sig-name descname"><span class="pre">Service</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#chweb.models.Config" title="chweb.models.Config"><span class="pre">chweb.models.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">logging.Logger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_loop</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">asyncio.events.AbstractEventLoop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">asyncio.queues.Queue</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.base.Service" title="Permalink to this definition">¶</a></dt>
 <dd><p>A base class for applications / services.</p>
 </dd></dl>
 
@@ -96,171 +95,171 @@
 </ul>
 <dl class="py class">
 <dt id="chweb.models.Check">
-<em class="property">class </em><code class="sig-prename descclassname">chweb.models.</code><code class="sig-name descname">Check</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">domain</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">regex</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">regex_matches</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">request_time</span><span class="p">:</span> <span class="n">datetime.datetime</span> <span class="o">=</span> <span class="default_value">datetime.datetime(2020, 9, 11, 10, 12, 8, 798726)</span></em>, <em class="sig-param"><span class="n">response_time</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">status</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">url</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.models.Check" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">chweb.models.</span></code><code class="sig-name descname"><span class="pre">Check</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex_matches</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request_time</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">datetime.datetime</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">datetime.datetime(2021,</span> <span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">21,</span> <span class="pre">27,</span> <span class="pre">55,</span> <span class="pre">193049)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response_time</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.models.Check" title="Permalink to this definition">¶</a></dt>
 <dd><p>Information for a website check request.</p>
 <dl class="py class">
 <dt id="chweb.models.Check.Config">
-<em class="property">class </em><code class="sig-name descname">Config</code><a class="headerlink" href="#chweb.models.Check.Config" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">Config</span></code><a class="headerlink" href="#chweb.models.Check.Config" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py attribute">
 <dt id="chweb.models.Check.Config.extra">
-<code class="sig-name descname">extra</code><em class="property"> = 'forbid'</em><a class="headerlink" href="#chweb.models.Check.Config.extra" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">extra</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'forbid'</span></em><a class="headerlink" href="#chweb.models.Check.Config.extra" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.Check.domain">
-<code class="sig-name descname">domain</code><em class="property">: str</em><a class="headerlink" href="#chweb.models.Check.domain" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">domain</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#chweb.models.Check.domain" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.Check.regex">
-<code class="sig-name descname">regex</code><em class="property">: Optional<span class="p">[</span>str<span class="p">]</span></em><a class="headerlink" href="#chweb.models.Check.regex" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">regex</span></code><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chweb.models.Check.regex" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.Check.regex_matches">
-<code class="sig-name descname">regex_matches</code><em class="property">: Optional<span class="p">[</span>bool<span class="p">]</span></em><a class="headerlink" href="#chweb.models.Check.regex_matches" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">regex_matches</span></code><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chweb.models.Check.regex_matches" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.Check.request_time">
-<code class="sig-name descname">request_time</code><em class="property">: datetime.datetime</em><a class="headerlink" href="#chweb.models.Check.request_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">request_time</span></code><em class="property"><span class="pre">:</span> <span class="pre">datetime.datetime</span></em><a class="headerlink" href="#chweb.models.Check.request_time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.Check.response_time">
-<code class="sig-name descname">response_time</code><em class="property">: int</em><a class="headerlink" href="#chweb.models.Check.response_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">response_time</span></code><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#chweb.models.Check.response_time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.Check.status">
-<code class="sig-name descname">status</code><em class="property">: int</em><a class="headerlink" href="#chweb.models.Check.status" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">status</span></code><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#chweb.models.Check.status" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.Check.url">
-<code class="sig-name descname">url</code><em class="property">: str</em><a class="headerlink" href="#chweb.models.Check.url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">url</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#chweb.models.Check.url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="chweb.models.Config">
-<em class="property">class </em><code class="sig-prename descclassname">chweb.models.</code><code class="sig-name descname">Config</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">kafka</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#chweb.models.KafkaConfig" title="chweb.models.KafkaConfig">chweb.models.KafkaConfig</a></span></em>, <em class="sig-param"><span class="n">postgres</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#chweb.models.PostgresConfig" title="chweb.models.PostgresConfig">chweb.models.PostgresConfig</a></span></em>, <em class="sig-param"><span class="n">sites</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#chweb.models.SiteConfig" title="chweb.models.SiteConfig">chweb.models.SiteConfig</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.models.Config" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">chweb.models.</span></code><code class="sig-name descname"><span class="pre">Config</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kafka</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#chweb.models.KafkaConfig" title="chweb.models.KafkaConfig"><span class="pre">chweb.models.KafkaConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">postgres</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#chweb.models.PostgresConfig" title="chweb.models.PostgresConfig"><span class="pre">chweb.models.PostgresConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sites</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#chweb.models.SiteConfig" title="chweb.models.SiteConfig"><span class="pre">chweb.models.SiteConfig</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.models.Config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main application configuration. Same for the checker and the kafka
 consumer / postgres writer for simplicity while deploying.</p>
 <dl class="py attribute">
 <dt id="chweb.models.Config.kafka">
-<code class="sig-name descname">kafka</code><em class="property">: <a class="reference internal" href="#chweb.models.KafkaConfig" title="chweb.models.KafkaConfig">chweb.models.KafkaConfig</a></em><a class="headerlink" href="#chweb.models.Config.kafka" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">kafka</span></code><em class="property"><span class="pre">:</span> <a class="reference internal" href="#chweb.models.KafkaConfig" title="chweb.models.KafkaConfig"><span class="pre">chweb.models.KafkaConfig</span></a></em><a class="headerlink" href="#chweb.models.Config.kafka" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.Config.postgres">
-<code class="sig-name descname">postgres</code><em class="property">: <a class="reference internal" href="#chweb.models.PostgresConfig" title="chweb.models.PostgresConfig">chweb.models.PostgresConfig</a></em><a class="headerlink" href="#chweb.models.Config.postgres" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">postgres</span></code><em class="property"><span class="pre">:</span> <a class="reference internal" href="#chweb.models.PostgresConfig" title="chweb.models.PostgresConfig"><span class="pre">chweb.models.PostgresConfig</span></a></em><a class="headerlink" href="#chweb.models.Config.postgres" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.Config.sites">
-<code class="sig-name descname">sites</code><em class="property">: List<span class="p">[</span><a class="reference internal" href="#chweb.models.SiteConfig" title="chweb.models.SiteConfig">chweb.models.SiteConfig</a><span class="p">]</span></em><a class="headerlink" href="#chweb.models.Config.sites" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">sites</span></code><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#chweb.models.SiteConfig" title="chweb.models.SiteConfig"><span class="pre">chweb.models.SiteConfig</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chweb.models.Config.sites" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="chweb.models.KafkaConfig">
-<em class="property">class </em><code class="sig-prename descclassname">chweb.models.</code><code class="sig-name descname">KafkaConfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">servers</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">topic</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">cafile</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">cert</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">key</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">passwd</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.models.KafkaConfig" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">chweb.models.</span></code><code class="sig-name descname"><span class="pre">KafkaConfig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">servers</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cafile</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cert</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">passwd</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.models.KafkaConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Kafka broker configuration.</p>
 <dl class="py attribute">
 <dt id="chweb.models.KafkaConfig.cafile">
-<code class="sig-name descname">cafile</code><em class="property">: str</em><a class="headerlink" href="#chweb.models.KafkaConfig.cafile" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">cafile</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#chweb.models.KafkaConfig.cafile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.KafkaConfig.cert">
-<code class="sig-name descname">cert</code><em class="property">: str</em><a class="headerlink" href="#chweb.models.KafkaConfig.cert" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">cert</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#chweb.models.KafkaConfig.cert" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.KafkaConfig.key">
-<code class="sig-name descname">key</code><em class="property">: str</em><a class="headerlink" href="#chweb.models.KafkaConfig.key" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">key</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#chweb.models.KafkaConfig.key" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.KafkaConfig.passwd">
-<code class="sig-name descname">passwd</code><em class="property">: str</em><a class="headerlink" href="#chweb.models.KafkaConfig.passwd" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">passwd</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#chweb.models.KafkaConfig.passwd" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.KafkaConfig.servers">
-<code class="sig-name descname">servers</code><em class="property">: List<span class="p">[</span>str<span class="p">]</span></em><a class="headerlink" href="#chweb.models.KafkaConfig.servers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">servers</span></code><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chweb.models.KafkaConfig.servers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.KafkaConfig.topic">
-<code class="sig-name descname">topic</code><em class="property">: str</em><a class="headerlink" href="#chweb.models.KafkaConfig.topic" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">topic</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#chweb.models.KafkaConfig.topic" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="chweb.models.PostgresConfig">
-<em class="property">class </em><code class="sig-prename descclassname">chweb.models.</code><code class="sig-name descname">PostgresConfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">dbhost</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'localhost'</span></em>, <em class="sig-param"><span class="n">dbport</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">5432</span></em>, <em class="sig-param"><span class="n">dbname</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'chweb'</span></em>, <em class="sig-param"><span class="n">dbuser</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'vladan'</span></em>, <em class="sig-param"><span class="n">dbpass</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">dbcert</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.models.PostgresConfig" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">chweb.models.</span></code><code class="sig-name descname"><span class="pre">PostgresConfig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbhost</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbport</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5432</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbname</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'chweb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbuser</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'vladan'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbpass</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbcert</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.models.PostgresConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>PostgreSQL server configuration.</p>
 <dl class="py attribute">
 <dt id="chweb.models.PostgresConfig.batch_size">
-<code class="sig-name descname">batch_size</code><em class="property">: int</em><a class="headerlink" href="#chweb.models.PostgresConfig.batch_size" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">batch_size</span></code><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#chweb.models.PostgresConfig.batch_size" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.PostgresConfig.dbcert">
-<code class="sig-name descname">dbcert</code><em class="property">: str</em><a class="headerlink" href="#chweb.models.PostgresConfig.dbcert" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dbcert</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#chweb.models.PostgresConfig.dbcert" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.PostgresConfig.dbhost">
-<code class="sig-name descname">dbhost</code><em class="property">: str</em><a class="headerlink" href="#chweb.models.PostgresConfig.dbhost" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dbhost</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#chweb.models.PostgresConfig.dbhost" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.PostgresConfig.dbname">
-<code class="sig-name descname">dbname</code><em class="property">: str</em><a class="headerlink" href="#chweb.models.PostgresConfig.dbname" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dbname</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#chweb.models.PostgresConfig.dbname" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.PostgresConfig.dbpass">
-<code class="sig-name descname">dbpass</code><em class="property">: str</em><a class="headerlink" href="#chweb.models.PostgresConfig.dbpass" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dbpass</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#chweb.models.PostgresConfig.dbpass" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.PostgresConfig.dbport">
-<code class="sig-name descname">dbport</code><em class="property">: int</em><a class="headerlink" href="#chweb.models.PostgresConfig.dbport" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dbport</span></code><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#chweb.models.PostgresConfig.dbport" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.PostgresConfig.dbuser">
-<code class="sig-name descname">dbuser</code><em class="property">: str</em><a class="headerlink" href="#chweb.models.PostgresConfig.dbuser" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dbuser</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#chweb.models.PostgresConfig.dbuser" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="chweb.models.SiteConfig">
-<em class="property">class </em><code class="sig-prename descclassname">chweb.models.</code><code class="sig-name descname">SiteConfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">url</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'https://example.com'</span></em>, <em class="sig-param"><span class="n">regex</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">check_interval</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.models.SiteConfig" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">chweb.models.</span></code><code class="sig-name descname"><span class="pre">SiteConfig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'https://example.com'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_interval</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.models.SiteConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Single website configuration.</p>
 <dl class="py attribute">
 <dt id="chweb.models.SiteConfig.check_interval">
-<code class="sig-name descname">check_interval</code><em class="property">: int</em><a class="headerlink" href="#chweb.models.SiteConfig.check_interval" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">check_interval</span></code><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#chweb.models.SiteConfig.check_interval" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.SiteConfig.regex">
-<code class="sig-name descname">regex</code><em class="property">: Optional<span class="p">[</span>str<span class="p">]</span></em><a class="headerlink" href="#chweb.models.SiteConfig.regex" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">regex</span></code><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#chweb.models.SiteConfig.regex" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="chweb.models.SiteConfig.url">
-<code class="sig-name descname">url</code><em class="property">: str</em><a class="headerlink" href="#chweb.models.SiteConfig.url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">url</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#chweb.models.SiteConfig.url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -271,12 +270,12 @@ consumer / postgres writer for simplicity while deploying.</p>
 <p>Checks status of web servers and sends them to a configured Kafka topic.</p>
 <dl class="py class">
 <dt id="chweb.collector.Collector">
-<em class="property">class </em><code class="sig-prename descclassname">chweb.collector.</code><code class="sig-name descname">Collector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#chweb.models.Config" title="chweb.models.Config">chweb.models.Config</a></span></em>, <em class="sig-param"><span class="n">logger</span><span class="p">:</span> <span class="n">logging.Logger</span></em>, <em class="sig-param"><span class="n">event_loop</span><span class="p">:</span> <span class="n">asyncio.events.AbstractEventLoop</span></em>, <em class="sig-param"><span class="n">queue</span><span class="p">:</span> <span class="n">asyncio.queues.Queue</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.collector.Collector" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">chweb.collector.</span></code><code class="sig-name descname"><span class="pre">Collector</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#chweb.models.Config" title="chweb.models.Config"><span class="pre">chweb.models.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">logging.Logger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_loop</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">asyncio.events.AbstractEventLoop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">asyncio.queues.Queue</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.collector.Collector" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class that contains all methods needed to check the statuses of all
 websites present in the config.</p>
 <dl class="py method">
 <dt id="chweb.collector.Collector.check">
-<em class="property">async </em><code class="sig-name descname">check</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">regex</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#chweb.models.Check" title="chweb.models.Check">chweb.models.Check</a><a class="headerlink" href="#chweb.collector.Collector.check" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">check</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#chweb.models.Check" title="chweb.models.Check"><span class="pre">chweb.models.Check</span></a><a class="headerlink" href="#chweb.collector.Collector.check" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks the status of a website and optionally matches a regex on the
 response body.</p>
 <dl class="field-list simple">
@@ -295,7 +294,7 @@ response body.</p>
 
 <dl class="py method">
 <dt id="chweb.collector.Collector.check_forever">
-<em class="property">async </em><code class="sig-name descname">check_forever</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">site</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#chweb.models.SiteConfig" title="chweb.models.SiteConfig">chweb.models.SiteConfig</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.collector.Collector.check_forever" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">check_forever</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">site</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#chweb.models.SiteConfig" title="chweb.models.SiteConfig"><span class="pre">chweb.models.SiteConfig</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.collector.Collector.check_forever" title="Permalink to this definition">¶</a></dt>
 <dd><p>A void function that checks the status of a site and sends the result
 in an <code class="xref py py-class docutils literal notranslate"><span class="pre">asyncio.Queue</span></code> for further processing, i.e. the check
 info is sent to a Kafka topic in
@@ -313,13 +312,13 @@ config.</p>
 
 <dl class="py class">
 <dt id="chweb.collector.Producer">
-<em class="property">class </em><code class="sig-prename descclassname">chweb.collector.</code><code class="sig-name descname">Producer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#chweb.models.Config" title="chweb.models.Config">chweb.models.Config</a></span></em>, <em class="sig-param"><span class="n">logger</span><span class="p">:</span> <span class="n">logging.Logger</span></em>, <em class="sig-param"><span class="n">event_loop</span><span class="p">:</span> <span class="n">asyncio.events.AbstractEventLoop</span></em>, <em class="sig-param"><span class="n">queue</span><span class="p">:</span> <span class="n">asyncio.queues.Queue</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.collector.Producer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">chweb.collector.</span></code><code class="sig-name descname"><span class="pre">Producer</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#chweb.models.Config" title="chweb.models.Config"><span class="pre">chweb.models.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">logging.Logger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_loop</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">asyncio.events.AbstractEventLoop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">asyncio.queues.Queue</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.collector.Producer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Kafka producer.</p>
 <p>Reads checks from the queue written by <a class="reference internal" href="#chweb.collector.Collector" title="chweb.collector.Collector"><code class="xref py py-class docutils literal notranslate"><span class="pre">chweb.collector.Collector</span></code></a>
 and sends all messages in a kafka topic.</p>
 <dl class="py method">
 <dt id="chweb.collector.Producer.produce">
-<em class="property">async </em><code class="sig-name descname">produce</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chweb.collector.Producer.produce" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">produce</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chweb.collector.Producer.produce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and starts an <code class="docutils literal notranslate"><span class="pre">aiokafka.AIOKafkaProducer</span></code> and runs a loop
 that reads from the queue and sends the messages to the topic defined
 in the config.</p>
@@ -333,13 +332,13 @@ in the config.</p>
 <p>Sample consumer.</p>
 <dl class="py class">
 <dt id="chweb.consumer.Consumer">
-<em class="property">class </em><code class="sig-prename descclassname">chweb.consumer.</code><code class="sig-name descname">Consumer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#chweb.models.Config" title="chweb.models.Config">chweb.models.Config</a></span></em>, <em class="sig-param"><span class="n">logger</span><span class="p">:</span> <span class="n">logging.Logger</span></em>, <em class="sig-param"><span class="n">event_loop</span><span class="p">:</span> <span class="n">asyncio.events.AbstractEventLoop</span></em>, <em class="sig-param"><span class="n">queue</span><span class="p">:</span> <span class="n">asyncio.queues.Queue</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.Consumer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">chweb.consumer.</span></code><code class="sig-name descname"><span class="pre">Consumer</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#chweb.models.Config" title="chweb.models.Config"><span class="pre">chweb.models.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">logging.Logger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_loop</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">asyncio.events.AbstractEventLoop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">asyncio.queues.Queue</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.Consumer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Consumes messages from the kafka topic and if they are correct, i.e. if
 they can be serialized in a <a class="reference internal" href="#chweb.models.Check" title="chweb.models.Check"><code class="xref py py-class docutils literal notranslate"><span class="pre">chweb.models.Check</span></code></a> object, then they
 are saved in the database.</p>
 <dl class="py method">
 <dt id="chweb.consumer.Consumer.consume">
-<em class="property">async </em><code class="sig-name descname">consume</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.Consumer.consume" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">consume</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.Consumer.consume" title="Permalink to this definition">¶</a></dt>
 <dd><p>Consumes messages from a kafka topic and writes them in the database.</p>
 </dd></dl>
 
@@ -347,23 +346,23 @@ are saved in the database.</p>
 
 <dl class="py class">
 <dt id="chweb.consumer.DbWriter">
-<em class="property">class </em><code class="sig-prename descclassname">chweb.consumer.</code><code class="sig-name descname">DbWriter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#chweb.models.Config" title="chweb.models.Config">chweb.models.Config</a></span></em>, <em class="sig-param"><span class="n">logger</span><span class="p">:</span> <span class="n">logging.Logger</span></em>, <em class="sig-param"><span class="n">event_loop</span><span class="p">:</span> <span class="n">asyncio.events.AbstractEventLoop</span></em>, <em class="sig-param"><span class="n">queue</span><span class="p">:</span> <span class="n">asyncio.queues.Queue</span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.DbWriter" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">chweb.consumer.</span></code><code class="sig-name descname"><span class="pre">DbWriter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#chweb.models.Config" title="chweb.models.Config"><span class="pre">chweb.models.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">logging.Logger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_loop</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">asyncio.events.AbstractEventLoop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">asyncio.queues.Queue</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.DbWriter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Database operations and handy helpers.</p>
 <dl class="py method">
 <dt id="chweb.consumer.DbWriter.connect">
-<em class="property">async </em><code class="sig-name descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.DbWriter.connect" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">connect</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.DbWriter.connect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Connects to the database and stores the connection in <code class="docutils literal notranslate"><span class="pre">self.conn</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="chweb.consumer.DbWriter.setup">
-<em class="property">async </em><code class="sig-name descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.DbWriter.setup" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">setup</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.DbWriter.setup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Setup the database, i.e. create the table and set up the indexes.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="chweb.consumer.DbWriter.write">
-<em class="property">async </em><code class="sig-name descname">write</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.DbWriter.write" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chweb.consumer.DbWriter.write" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes a batch of records to the databse. The size in the batch is
 defined in <code class="docutils literal notranslate"><span class="pre">chweb.models.PostgresConfig.batch_size</span></code>.</p>
 </dd></dl>
